@@ -26,7 +26,7 @@ jobs:
           # Optional plain body:
           body: Build job completed successfully!
           # Optional HTML body read from file:
-          html_body: file://learn-pr-create.yml
+          html_body: hello world
           # Optional carbon copy recipients:
           cc: tester101r81@gmail.com
           # Optional blind carbon copy recipients:
