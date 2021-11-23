@@ -43,8 +43,8 @@ jobs:
 #       - name: Publish file changes to Slack
 #         # HERE I run `git diff` in node.js process
 #         run: "SLACK_TOKEN=${{ secrets.GITHUB_TOKEN }} npx ts-node scripts/publishSlackUpdate"
-      - name: Build TOC
-        run: make toc
+#       - name: Build TOC
+#         run: make toc
       - name: Commit build changes
         uses: EndBug/add-and-commit@v7
         with:
