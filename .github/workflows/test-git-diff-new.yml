@@ -16,7 +16,7 @@ jobs:
       - name: git diff
         run: |
           git rev-parse HEAD
-          git diff 0d19d91c7a0cb890d71659867c075517868f3c5b 67236eb -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+          git diff fd4833e5123dc0a30081ca1ab1d8626746dad73d f02a364 -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
       - name: git diff to artifact
         uses: actions/upload-artifact@v2
         with:
