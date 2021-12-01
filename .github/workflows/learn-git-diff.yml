@@ -30,7 +30,18 @@ jobs:
             +(src|__tests__)/**/*.ts
             !src/exclude.ts
           FORMAT: json
+      - run: |
+          git diff 'get-diff-action/main...get-diff-action/pull/14/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
       - run: echo '${{ env.GIT_DIFF }}' | jq .
+#   alt-method:
+#     runs-on: ubuntu-latest
+#     steps: 
+#       - name: git fetch
+#         run: git fetch
+        
+#       - name: git diff
+#         run: |
+#           git diff 'get-diff-action/main...get-diff-action/pull/14/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
 #   alt-method:
 #     runs-on: ubuntu-latest
 #     steps:
