@@ -15,7 +15,7 @@ jobs:
         
       - name: git diff
         run: |
-          git diff 0104599d78734250354d4e8b3db99e13ae3cc62f 0104599 -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+          git diff 'get-diff-action/main...get-diff-action/pull/13/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
       - name: git diff to artifact
         uses: actions/upload-artifact@v2
         with:
