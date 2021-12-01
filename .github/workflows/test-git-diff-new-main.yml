@@ -1,7 +1,7 @@
-name: git-diff-new
+name: git-diff-new-main
 on: pull_request
 jobs:
-  run-git-diff:
+  run-git-diff-main:
     name: run git diff
     runs-on: ubuntu-latest
     steps:
