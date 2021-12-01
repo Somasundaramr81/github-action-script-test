@@ -1,0 +1,23 @@
+name: git-diff-new
+on: pull_request
+jobs:
+  run-git-diff:
+    name: run git diff
+    runs-on: ubuntu-latest
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+        
+      - name: git fetch
+        run: git fetch
+        
+      - name: git diff
+        run: |
+          git diff 0104599d78734250354d4e8b3db99e13ae3cc62f 0104599 -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+      - name: git diff to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: difftext
+          path: diff-text.txt
