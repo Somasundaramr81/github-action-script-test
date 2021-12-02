@@ -38,6 +38,17 @@ jobs:
         with:
           name: difftext
           path: diff-text.txt
+      - name: Send some mail
+        uses: wadeww/send-email-action@master
+        with:
+          server_address: smtp.gmail.com
+          port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Workflow finished
+          body: Job completed
+          to: tester101r81@gmail.com
+          from: Me
 #   alt-method:
 #     runs-on: ubuntu-latest
 #     steps: 
