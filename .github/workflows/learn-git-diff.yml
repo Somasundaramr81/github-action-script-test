@@ -38,6 +38,10 @@ jobs:
         with:
           name: difftext
           path: diff-text.txt
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: difftext
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
@@ -74,7 +78,7 @@ jobs:
           # Optional converting Markdown to HTML (set content_type to text/html too):
           convert_markdown: true
           # Optional attachments:
-          attachments: attachments.zip,git.diff,./dist/static/*.js
+          attachments: difftext, diff-text.txt
           # Optional priority: 'high', 'normal' (default) or 'low'
           priority: low
 #       - name: Send some mail
