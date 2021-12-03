@@ -10,7 +10,10 @@
       },
       "audio": {
         "href": "https://freshchat.com"
-      }
+      },
+      "image": {
+        "href": "https://freshchat.com"
+      },
     }
   }
 }
