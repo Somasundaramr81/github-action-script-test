@@ -24,7 +24,7 @@ jobs:
           en_present: true
   push:
     runs-on: ubuntu-latest
-    if: env.en_present
+    if: ${{env.en_present}}
     steps:
       - name: git diff to artifact
         uses: actions/upload-artifact@v2
