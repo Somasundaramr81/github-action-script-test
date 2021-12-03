@@ -1,0 +1,126 @@
+name: git-diff-mail
+on: pull_request
+jobs:
+  run-mail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: technote-space/get-diff-action@v5
+        with:
+          PATTERNS: |
+            +(src|__tests__)/**/*.ts
+            !src/exclude.ts
+          FILES: |
+            yarn.lock
+            .eslintrc
+      - name: Install Package dependencies
+        run: yarn install
+        if: env.GIT_DIFF
+      - name: Check code style
+        # Check only if there are differences in the source code
+        run: yarn lint
+        if: env.GIT_DIFF
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: technote-space/get-diff-action@v5
+        with:
+          PATTERNS: |
+            +(src|__tests__)/**/*.ts
+            !src/exclude.ts
+          FORMAT: json
+      - run: |
+          git remote add get-diff-action
+          git fetch --no-tags --no-recurse-submodules '--depth=10000' get-diff-action
+          git diff 'get-diff-action/main...get-diff-action/pull/14/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+      - run: echo '${{ env.GIT_DIFF }}' | jq .
+      - name: git diff to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: difftext
+          path: diff-text.txt
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: difftext
+#       - name: Send mail
+#         uses: dawidd6/action-send-mail@v3
+#         with:
+#           # Required mail server address:
+#           server_address: smtp.gmail.com
+#           # Required mail server port:
+#           server_port: 465
+#           # Optional (recommended): mail server username:
+#           username: ${{secrets.MAIL_USERNAME}}
+#           # Optional (recommended) mail server password:
+#           password: ${{secrets.MAIL_PASSWORD}}
+#           # Required mail subject:
+#           subject: Github Actions job result
+#           # Required recipients' addresses:
+#           to: tester101r81@gmail.com
+#           # Required sender full name (address can be skipped):
+#           from: Testser # <user@example.com>
+#           # Optional whether this connection use TLS (default is true if server_port is 465)
+#           secure: true
+#           # Optional plain body:
+#           body: Build job completed successfully!
+#           # Optional HTML body read from file:
+#           html_body: hello world 1
+#           # Optional carbon copy recipients:
+#           cc: tester101r81@gmail.com
+#           # Optional blind carbon copy recipients:
+#           bcc: tester101r81@gmail.com
+#           # Optional recipient of the email response:
+#           reply_to: tester101r81@gmail.com
+#           # Optional Message ID this message is replying to:
+#           in_reply_to: <tester101r81@gmail.com>
+#           # Optional unsigned/invalid certificates allowance:
+#           ignore_cert: true
+#           # Optional converting Markdown to HTML (set content_type to text/html too):
+#           convert_markdown: true
+#           # Optional attachments:
+#           attachments: difftext, diff-text.txt
+#           # Optional priority: 'high', 'normal' (default) or 'low'
+#           priority: low
+#       - name: Send some mail
+#         uses: wadeww/send-email-action@master
+#         with:
+#           server_address: smtp.gmail.com
+#           port: 465
+#           username: ${{secrets.MAIL_USERNAME}}
+#           password: ${{secrets.MAIL_PASSWORD}}
+#           subject: Workflow finished
+#           body: Job completed
+#           to: tester101r81@gmail.com
+#           from: Me
+#   alt-method:
+#     runs-on: ubuntu-latest
+#     steps: 
+#       - name: git fetch
+#         run: git fetch
+        
+#       - name: git diff
+#         run: |
+#           git diff 'get-diff-action/main...get-diff-action/pull/14/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+#   alt-method:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Configure Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: 14.x
+#       - name: Install dependencies
+#         run: yarn install
+# #       - name: Publish file changes to Slack
+# #         # HERE I run `git diff` in node.js process
+# #         run: "SLACK_TOKEN=${{ secrets.GITHUB_TOKEN }} npx ts-node scripts/publishSlackUpdate"
+# #       - name: Build TOC
+# #         run: make toc
+#       - name: Commit build changes
+#         uses: EndBug/add-and-commit@v7
+#         with:
+#           author_name: Docs Builder
+#           author_email: tester101r81@gmail.com
+#           message: 'Updated build'
+#           add: '*.md'
