@@ -114,7 +114,7 @@ jobs:
           # Optional plain body:
           body: Build job completed successfully!
           # Optional HTML body read from file:
-          html_body: hello world 1
+          html_body: Please find attachment for the diff changes in translation file
           # Optional carbon copy recipients:
           cc: tester101r81@gmail.com
           # Optional blind carbon copy recipients:
