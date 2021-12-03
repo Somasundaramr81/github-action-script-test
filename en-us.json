@@ -7,13 +7,7 @@
       },
       "video": {
         "href": "https://freshchat.wistia.com/medias/vsvh3qaaqy"
-      },
-      "audio": {
-        "href": "https://freshchat.com"
-      },
-      "image": {
-        "href": "https://freshchat.com"
-      },
+      }
     }
   }
 }
