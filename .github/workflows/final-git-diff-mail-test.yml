@@ -19,10 +19,10 @@ jobs:
           FORMAT: json
       - run: |
           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
-      - name: set flag
-        if: success()
-        env:
-          en_present: true
+#       - name: set flag
+#         if: success()
+#         env:
+#           en_present: true
       - name: git diff to artifact
         uses: actions/upload-artifact@v2
         with:
