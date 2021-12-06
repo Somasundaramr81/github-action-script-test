@@ -1,5 +1,8 @@
 name: final-git-diff-mail-test
-on: pull_request
+on:
+  pull_request:
+    paths:
+      - 'en-us.json'
 jobs:
   dump:
     runs-on: ubuntu-latest
