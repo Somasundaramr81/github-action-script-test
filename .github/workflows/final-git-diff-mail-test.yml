@@ -21,14 +21,14 @@ jobs:
 #             !src/exclude.ts
 #           FORMAT: json
       - run: |
-          git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[-]'
+          git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json
 #       - name: git diff to artifact
 #         uses: actions/upload-artifact@v2
 #         with:
 #           name: difftext
 #           path: diff-text.txt      
       - run: |
-          git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+          git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[-]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
 #       - name: set flag
 #         uses: actions/checkout@v2
 #         if: success()
