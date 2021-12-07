@@ -44,7 +44,7 @@ jobs:
         id: downloadfile  # Remember to give an ID if you need the output
         name: Download the file
         with:
-          url: ${{ github.event.comment.body }}
+          url: ${{ steps.PR.outputs.pr_body }}
           target: public/
           auto-match: true
       - name: Send mail
