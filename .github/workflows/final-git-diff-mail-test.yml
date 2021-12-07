@@ -30,6 +30,8 @@ jobs:
       - shell: bash
         run: |  
           echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt
+#         env:
+#           DAY_OF_WEEK: "${{ steps.PR.outputs.pr_body }} | sed -e 's/|/\\|/g'"    
       - shell: bash
         run: |
           grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | grep ^http | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' | tail +1 | sort -u > pr-details-for-screenshot.txt
@@ -83,8 +85,8 @@ jobs:
           from: Testser # <user@example.com>
           # Optional whether this connection use TLS (default is true if server_port is 465)
           secure: true
-          body: Build job completed successfully!
-          html_body: final git diff in translation file
+          body: Testing email part
+          html_body: screenshot and final git diff in translation file
           cc: tester101r81@gmail.com
           bcc: tester101r81@gmail.com
           reply_to: tester101r81@gmail.com
@@ -92,6 +94,6 @@ jobs:
           ignore_cert: true
           convert_markdown: true
 #           attachments: difftext, diff-text.txt
-          attachments: pr-details-for-screenshot.txt
+          attachments: screenshot , pr-details-for-screenshot.txt
           priority: low
 
