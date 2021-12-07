@@ -27,7 +27,7 @@ jobs:
 #           prCreatedAt: ${{ steps.PR.outputs.pr_created_at }}
 #           prMergedAt: ${{ steps.PR.outputs.pr_merged_at }}
 #           prClosedAt: ${{ steps.PR.outputs.pr_closed_at }}
-      - run: echo "pr attach json ${{ steps.PR.outputs.pr_body }}"
+      - run: echo "pr attach json ${{ steps.PR.outputs.pr_body }} -U0 | grep'/src=/g'"
       - uses: technote-space/get-diff-action@v5
 #         with:
 #           PATTERNS: |
