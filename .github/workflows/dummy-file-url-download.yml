@@ -46,7 +46,7 @@ jobs:
         with:
           url: ./pr-details-for-screenshot.txt
           target: public/
-          auto-match: true
+#           auto-match: true
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
