@@ -34,7 +34,7 @@ jobs:
 #           DAY_OF_WEEK: "${{ steps.PR.outputs.pr_body }} | sed -e 's/|/\\|/g'"    
       - shell: bash
         run: |
-          grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | grep ^http | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' | tail +1 | sort -u > pr-details-for-screenshot.txt
+          grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | grep ^http | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' | sort -u > pr-details-for-screenshot.txt
 #       - uses: technote-space/get-diff-action@v5
 # #         with:
 # #           PATTERNS: |
