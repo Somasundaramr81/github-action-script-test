@@ -31,7 +31,7 @@ jobs:
 #         ${{ steps.PR.outputs.pr_body }} > diff-text.txt
       - shell: bash
         run: |
-          ${{ steps.PR.outputs.pr_body }} > diff-text.txt
+          "${{ steps.PR.outputs.pr_body }}" > diff-text.txt
 #       - uses: technote-space/get-diff-action@v5
 # #         with:
 # #           PATTERNS: |
