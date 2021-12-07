@@ -27,11 +27,10 @@ jobs:
 #           prCreatedAt: ${{ steps.PR.outputs.pr_created_at }}
 #           prMergedAt: ${{ steps.PR.outputs.pr_merged_at }}
 #           prClosedAt: ${{ steps.PR.outputs.pr_closed_at }}
-#       - run: |
-#         ${{ steps.PR.outputs.pr_body }} > diff-text.txt
+      - run: expr "${{ steps.PR.outputs.pr_body }} > diff-text.txt"
       - shell: bash
         run: |
-          "${{ steps.PR.outputs.pr_body }}" > diff-text.txt
+          grep http ./diff-text.txt | sed 's/http/\nhttp/g' | grep ^http | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' | sort -u
 #       - uses: technote-space/get-diff-action@v5
 # #         with:
 # #           PATTERNS: |
