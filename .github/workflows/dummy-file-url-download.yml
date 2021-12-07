@@ -44,7 +44,7 @@ jobs:
         id: downloadfile  # Remember to give an ID if you need the output
         name: Download the file
         with:
-          url: ${{ steps.PR.outputs.pr_body }}
+          url: ./pr-details-for-screenshot.txt
           target: public/
           auto-match: true
       - name: Send mail
