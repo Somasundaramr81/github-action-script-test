@@ -63,34 +63,35 @@ jobs:
 #         uses: actions/download-artifact@v2
 #         with:
 #           name: difftext
-#       - name: Send mail
-#         if: env.en_present
-#         uses: dawidd6/action-send-mail@v3
-#         with:
-#           # Required mail server address:
-#           server_address: smtp.gmail.com
-#           # Required mail server port:
-#           server_port: 465
-#           # Optional (recommended): mail server username:
-#           username: ${{secrets.MAIL_USERNAME}}
-#           # Optional (recommended) mail server password:
-#           password: ${{secrets.MAIL_PASSWORD}}
-#           # Required mail subject:
-#           subject: Github Actions job result
-#           # Required recipients' addresses:
-#           to: tester101r81@gmail.com
-#           # Required sender full name (address can be skipped):
-#           from: Testser # <user@example.com>
-#           # Optional whether this connection use TLS (default is true if server_port is 465)
-#           secure: true
-#           body: Build job completed successfully!
-#           html_body: final git diff in translation file
-#           cc: tester101r81@gmail.com
-#           bcc: tester101r81@gmail.com
-#           reply_to: tester101r81@gmail.com
-#           in_reply_to: <tester101r81@gmail.com>
-#           ignore_cert: true
-#           convert_markdown: true
+      - name: Send mail
+        if: env.en_present
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Required mail server address:
+          server_address: smtp.gmail.com
+          # Required mail server port:
+          server_port: 465
+          # Optional (recommended): mail server username:
+          username: ${{secrets.MAIL_USERNAME}}
+          # Optional (recommended) mail server password:
+          password: ${{secrets.MAIL_PASSWORD}}
+          # Required mail subject:
+          subject: Github Actions job result
+          # Required recipients' addresses:
+          to: tester101r81@gmail.com
+          # Required sender full name (address can be skipped):
+          from: Testser # <user@example.com>
+          # Optional whether this connection use TLS (default is true if server_port is 465)
+          secure: true
+          body: Build job completed successfully!
+          html_body: final git diff in translation file
+          cc: tester101r81@gmail.com
+          bcc: tester101r81@gmail.com
+          reply_to: tester101r81@gmail.com
+          in_reply_to: <tester101r81@gmail.com>
+          ignore_cert: true
+          convert_markdown: true
 #           attachments: difftext, diff-text.txt
-#           priority: low
+          attachments: pr-details-for-screenshot.txt
+          priority: low
 
