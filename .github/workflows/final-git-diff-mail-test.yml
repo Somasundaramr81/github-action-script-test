@@ -29,7 +29,7 @@ jobs:
 #           prClosedAt: ${{ steps.PR.outputs.pr_closed_at }}
       - shell: bash
         run: |  
-          echo ${{ steps.PR.outputs.pr_body }} > diff-text.txt
+          echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > diff-text.txt
       - shell: bash
         run: |
           grep http ./diff-text.txt | sed 's/http/\nhttp/g' | grep ^http | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' | sort -u
