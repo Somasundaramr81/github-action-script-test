@@ -21,7 +21,7 @@ jobs:
         with:
           name: difftext
           path: diff-text.txt
-       - shell: bash
+      - shell: bash
         run: |  
           echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt   
       - shell: bash
