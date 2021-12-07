@@ -29,10 +29,10 @@ jobs:
 #           prClosedAt: ${{ steps.PR.outputs.pr_closed_at }}
       - shell: bash
         run: |  
-          echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > diff-text.txt
+          echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt
       - shell: bash
         run: |
-          grep http ./diff-text.txt | sed 's/http/\nhttp/g' | grep ^http | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' | sort -u
+          grep http ./pr-details-for-screenshot | sed 's/http/\nhttp/g' | grep ^http | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' | sort -u > pr-details-for-screenshot.txt
 #       - uses: technote-space/get-diff-action@v5
 # #         with:
 # #           PATTERNS: |
