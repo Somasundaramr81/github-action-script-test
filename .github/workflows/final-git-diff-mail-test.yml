@@ -61,10 +61,10 @@ jobs:
 #         with:
 #           name: difftext
 #           path: diff-text.txt
-#       - name: Download a single artifact
-#         uses: actions/download-artifact@v2
-#         with:
-#           name: difftext
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot
       - name: Send mail
         if: env.en_present
         uses: dawidd6/action-send-mail@v3
