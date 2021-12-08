@@ -56,6 +56,10 @@ jobs:
               echo "$i"
               url= echo $p | tr -d '>'
               echo $url
+              a="https://user-images.githubusercontent.com/"
+              if [[ $a =~ "images" ]]; then
+                echo "A IIt's there!"
+              fi
               if [[ $url =~ "images" ]]; then
                 echo "It's there!"
                 curl $url -o artifacts/screenshotimage${i}.png
