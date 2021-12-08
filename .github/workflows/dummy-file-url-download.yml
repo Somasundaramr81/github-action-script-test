@@ -54,7 +54,7 @@ jobs:
             i=0
             while read p; do
               echo "$i"
-              url= echo $p | tr -d '>'
+              url= $p | tr -d '>'
               echo $url
               if [[ $url =~ "images" ]]; then
                 echo "It's there!"
