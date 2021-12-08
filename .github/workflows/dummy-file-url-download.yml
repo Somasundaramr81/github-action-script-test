@@ -59,7 +59,7 @@ jobs:
               url= echo $p | tr -d '>'
               echo https://user-images.githubusercontent.com/52317701/144969533-cf8fb60a-a0ff-41c5-b81c-42e8a5bdafcc.png
               echo $url
-              curl https://user-images.githubusercontent.com/52317701/144969533-cf8fb60a-a0ff-41c5-b81c-42e8a5bdafcc.png -o artifacts/screenshotimage${i}.png
+              curl "$url" -o artifacts/screenshotimage${i}.png
               i=$((i+1))
             done < pr-details-for-screenshot.txt
       - name: Send mail
