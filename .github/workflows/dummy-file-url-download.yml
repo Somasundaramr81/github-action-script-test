@@ -91,5 +91,5 @@ jobs:
           convert_markdown: true
           run: |
             echo $i
-          attachments: difftext, diff-text.txt, screenshot, pr-details-for-screenshot.txt, public/downloadfile, artifacts/screenshotimage0.png, artifacts/screenshotimage1.png 
+          attachments: difftext, diff-text.txt, screenshot, pr-details-for-screenshot.txt, public/downloadfile, artifacts/*.png
           priority: low
