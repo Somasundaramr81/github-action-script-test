@@ -60,8 +60,8 @@ jobs:
               if [[ $a =~ "images" ]]; then
                 echo "A IIt's there!"
               fi
-              if [[ $url =~ "images" ]]; then
-                echo "It's there!"
+              if [[ $p =~ "images" ]]; then
+                echo "P It's there!"
                 curl $url -o artifacts/screenshotimage${i}.png
                 i=$((i+1))
               fi
