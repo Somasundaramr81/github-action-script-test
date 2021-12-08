@@ -32,14 +32,14 @@ jobs:
         with:
           name: screenshot
           path: pr-details-for-screenshot.txt
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: difftext
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: screenshot
+#       - name: Download a single artifact
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: difftext
+#       - name: Download a single artifact
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: screenshot
 #       - uses: suisei-cn/actions-download-file@v1
 #         id: downloadfile  # Remember to give an ID if you need the output
 #         name: Download the file
