@@ -53,10 +53,10 @@ jobs:
         run: |
             i=0
             while read p; do
-              echo "$p"
+              echo "$p" | sed 's/.$//'
               echo "$p" | tr -d '>'
               echo "$i"
-              curl $p | tr -d '>' -o artifacts/screenshotimage${i}.png
+              curl $p | sed 's/.$//' -o artifacts/screenshotimage${i}.png
               i++
             done < pr-details-for-screenshot.txt
       - name: Send mail
