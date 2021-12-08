@@ -54,7 +54,7 @@ jobs:
             i=0
             while read p; do
               echo "$i"
-              url=$(echo $p | tr -d '>')
+              url=$(echo $p | tr -d '>' | tr -d '^M')
               if [[ $url =~ "images" ]]; then
                 echo "url It's there!"
                 echo "'$url'" | LC_ALL=C cat -vt
