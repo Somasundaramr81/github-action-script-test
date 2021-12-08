@@ -47,6 +47,8 @@ jobs:
           url: "https://user-images.githubusercontent.com/52317701/144969533-cf8fb60a-a0ff-41c5-b81c-42e8a5bdafcc.png"
           target: public/
 #           auto-match: true
+      - name: Download a file
+        run: curl https://user-images.githubusercontent.com/52317701/144969533-cf8fb60a-a0ff-41c5-b81c-42e8a5bdafcc.png -o artifacts/
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
