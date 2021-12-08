@@ -60,7 +60,7 @@ jobs:
               url= echo $p | tr -d '>'
               url="${url%$cr}"
               echo https://user-images.githubusercontent.com/52317701/144969533-cf8fb60a-a0ff-41c5-b81c-42e8a5bdafcc.png
-              echo ${{url}}
+              echo $url
               curl "$url" -o artifacts/screenshotimage${i}.png
               i=$((i+1))
             done < pr-details-for-screenshot.txt
