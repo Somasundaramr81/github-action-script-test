@@ -90,7 +90,6 @@ jobs:
           in_reply_to: <tester101r81@gmail.com>
           ignore_cert: true
           convert_markdown: true
-          run: |
-            echo $i
-          attachments: difftext, diff-text.txt, screenshot, pr-details-for-screenshot.txt, public/downloadfile, artifacts/*
+#           attachments: difftext, diff-text.txt, screenshot, pr-details-for-screenshot.txt, public/downloadfile, artifacts/*
+          attachments: artifacts/*
           priority: low
