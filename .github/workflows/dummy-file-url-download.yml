@@ -57,6 +57,7 @@ jobs:
               echo "$p" | tr -d '>'
               echo "$i"
               url= echo $p | tr -d '>'
+              echo $url
               curl $url -o artifacts/screenshotimage${i}.png
               i++
             done < pr-details-for-screenshot.txt
