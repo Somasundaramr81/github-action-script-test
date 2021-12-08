@@ -58,7 +58,7 @@ jobs:
               if [[ $url =~ "images" ]]; then
                 echo "url It's there!"
                 echo "'$url'" | LC_ALL=C cat -vt
-                curl "$url" -o screenshots/screenshot${i}.png
+                curl "$url" -o artifacts/screenshot${i}.png
                 i=$((i+1))
               fi
             done < pr-details-for-screenshot.txt
@@ -90,5 +90,5 @@ jobs:
           ignore_cert: true
           convert_markdown: true
 #           attachments: difftext, diff-text.txt, screenshot, pr-details-for-screenshot.txt, public/downloadfile, artifacts/*
-          attachments: screenshots/*
+          attachments: artifacts/*.png
           priority: low
