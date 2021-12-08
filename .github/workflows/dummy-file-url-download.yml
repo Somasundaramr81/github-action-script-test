@@ -58,7 +58,7 @@ jobs:
               echo "$p" | tr -d '>'
               echo "$i"
               url= echo $p | tr -d '>'
-              url="${url%$cr}"
+              url= echo $url | tr -d '\r'
               echo https://user-images.githubusercontent.com/52317701/144969533-cf8fb60a-a0ff-41c5-b81c-42e8a5bdafcc.png
               echo $url
               curl "$url" -o artifacts/screenshotimage${i}.png
