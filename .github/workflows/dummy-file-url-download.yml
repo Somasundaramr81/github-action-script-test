@@ -56,7 +56,7 @@ jobs:
               echo "$p"
               echo "$p" | tr -d '>'
               echo "$i"
-              curl $p -o artifacts/screenshotimage${i}.png
+              curl $p | tr -d '>' -o artifacts/screenshotimage${i}.png
               i++
             done < pr-details-for-screenshot.txt
       - name: Send mail
