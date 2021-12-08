@@ -56,7 +56,7 @@ jobs:
               echo "$i"
               url= echo $p | tr -d '>'
               echo $url
-              if [[ $url == *"images"* ]]; then
+              if [[ $url =~ "images" ]]; then
                 echo "It's there!"
                 curl $url -o artifacts/screenshotimage${i}.png
                 i=$((i+1))
