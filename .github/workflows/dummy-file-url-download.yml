@@ -57,8 +57,8 @@ jobs:
               url=$(echo $p | tr -d '>')
               if [[ $url =~ "images" ]]; then
                 echo "url It's there!"
-                echo $url
-                curl $url -o artifacts/screenshotimage${i}.png
+                echo "$url"
+                curl "$url" -o artifacts/screenshotimage${i}.png
                 i=$((i+1))
               fi
             done < pr-details-for-screenshot.txt
