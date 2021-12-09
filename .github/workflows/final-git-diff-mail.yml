@@ -1,0 +1,62 @@
+name: final-git-diff-mail
+on:
+  pull_request:
+    paths: 'en-us.json'
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 8BitJonny/gh-get-current-pr@1.3.0
+        id: PR
+        with:
+          github-token: ${{ secrets.GIT_TOKEN }}
+          sha: ${{ github.event.pull_request.head.sha }}
+          filterOutClosed: true
+      - uses: technote-space/get-diff-action@v5
+        with:
+          PATTERNS: |
+            +(src|__tests__)/**/*.ts
+            !src/exclude.ts
+          FORMAT: json
+      - run: |
+          git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+      - name: git diff to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: difftext
+          path: diff-text.txt
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: difftext
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Required mail server address:
+          server_address: smtp.gmail.com
+          # Required mail server port:
+          server_port: 465
+          # Optional (recommended): mail server username:
+          username: ${{secrets.MAIL_USERNAME}}
+          # Optional (recommended) mail server password:
+          password: ${{secrets.MAIL_PASSWORD}}
+          # Required mail subject:
+          subject: Github Actions job result
+          # Required recipients' addresses:
+          to: tester101r81@gmail.com
+          # Required sender full name (address can be skipped):
+          from: Testser # <user@example.com>
+          # Optional whether this connection use TLS (default is true if server_port is 465)
+          secure: true
+          body: Build job completed successfully!
+          html_body: final git diff in translation file
+          cc: tester101r81@gmail.com
+          bcc: tester101r81@gmail.com
+          reply_to: tester101r81@gmail.com
+          in_reply_to: <tester101r81@gmail.com>
+          ignore_cert: true
+          convert_markdown: true
+          attachments: difftext, diff-text.txt
+          priority: low
+

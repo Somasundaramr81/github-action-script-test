@@ -1,0 +1,97 @@
+name: final-git-diff-mail-test
+on:
+  pull_request:
+    paths:
+      - 'en-us.json'
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 8BitJonny/gh-get-current-pr@1.3.0
+        id: PR
+        with:
+          github-token: ${{ secrets.GIT_TOKEN }}
+          sha: ${{ github.event.pull_request.head.sha }}
+          filterOutClosed: true
+#       - run: echo "Your PR is ${prNumber} and its JSON is ${prJSON}"
+#         if: success() && steps.PR.outputs.number
+#         env:
+#           prNumber: ${{ steps.PR.outputs.number }}
+#           # JSON object with the full PR object
+#           prJSON: ${{ steps.PR.outputs.pr }}
+#           # Direct access to common PR properties
+#           prUrl: ${{ steps.PR.outputs.pr_url }}
+#           prTitle: ${{ steps.PR.outputs.pr_title }}
+#           prBody: ${{ steps.PR.outputs.pr_body }}
+#           prCreatedAt: ${{ steps.PR.outputs.pr_created_at }}
+#           prMergedAt: ${{ steps.PR.outputs.pr_merged_at }}
+#           prClosedAt: ${{ steps.PR.outputs.pr_closed_at }}
+      - shell: bash
+        run: |  
+          echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt   
+      - shell: bash
+        run: |
+          grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | grep ^http | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' | sort -u > pr-details-for-screenshot.txt
+#       - uses: technote-space/get-diff-action@v5
+# #         with:
+# #           PATTERNS: |
+# #             +(src|__tests__)/**/*.ts
+# #             !src/exclude.ts
+# #           FORMAT: json
+#       - run: |
+#           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[-]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+      - name: git diff to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshot
+          path: pr-details-for-screenshot.txt     
+#       - run: |
+#           value=`cat diff-text.txt`
+#           expr $value diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[-]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+#       - name: set flag
+#         uses: actions/checkout@v2
+#         if: success()
+#         env:
+#           en_present: true
+#       - name: git diff to artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: difftext
+#           path: diff-text.txt
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot
+      - name: Send mail
+        if: env.en_present
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Required mail server address:
+          server_address: smtp.gmail.com
+          # Required mail server port:
+          server_port: 465
+          # Optional (recommended): mail server username:
+          username: ${{secrets.MAIL_USERNAME}}
+          # Optional (recommended) mail server password:
+          password: ${{secrets.MAIL_PASSWORD}}
+          # Required mail subject:
+          subject: Github Actions job result
+          # Required recipients' addresses:
+          to: tester101r81@gmail.com
+          # Required sender full name (address can be skipped):
+          from: Testser # <user@example.com>
+          # Optional whether this connection use TLS (default is true if server_port is 465)
+          secure: true
+          body: Testing email part
+          html_body: screenshot and final git diff in translation file
+          cc: tester101r81@gmail.com
+          bcc: tester101r81@gmail.com
+          reply_to: tester101r81@gmail.com
+          in_reply_to: <tester101r81@gmail.com>
+          ignore_cert: true
+          convert_markdown: true
+#           attachments: difftext, diff-text.txt
+#           attachments: screenshot , pr-details-for-screenshot.txt
+          priority: low
+
