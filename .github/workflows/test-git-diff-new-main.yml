@@ -17,7 +17,7 @@ jobs:
       - uses: technote-space/get-diff-action@v5
       - run: |
           echo "test"
-          git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json > diff-text.txt
+          git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } > diff-text.txt
       - run: |
           echo "Newly added fields"
           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' >> diff-text.txt
