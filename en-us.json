@@ -25,6 +25,9 @@
       },
       "image": {
         "href": "https://freshchat.wistia.com/medias/vsvh3qaaqy"
+      },
+      "hello": {
+        "world": "123"
       }
     }
   }
