@@ -44,8 +44,11 @@ jobs:
       - uses: technote-space/get-diff-action@v5
       - name: Fetch and Diff PR  
         run: |
+          echo ${{ github.event.pull_request}}
+          echo "External"
+          echo ${{ steps.PR.outputs }}
           git fetch origin main ${{ github.event.pull_request.head.sha }}
-          git diff ${{ github.event.pull_request.head.sha }} ${{ github.sha }} > diff-text.txt
+          git diff ${{ github.event.pull_request.head.sha }} ${{ github.sha }}
 #       - run: |
 #           echo "testing"
 #           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC'
