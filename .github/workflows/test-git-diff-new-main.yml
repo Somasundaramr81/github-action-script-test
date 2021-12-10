@@ -76,15 +76,15 @@ jobs:
       - shell: bash
         run: |
           grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | grep ^http | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' | sort -u > pr-details-for-screenshot.txt
-      - name: upload screenshot to artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: screenshot
-          path: pr-details-for-screenshot.txt
+#       - name: upload screenshot to artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: screenshot
+#           path: pr-details-for-screenshot.txt
       - name: Download the screenshot and diff text artifacts
         uses: actions/download-artifact@v2
         with:
-          name: difftext, screenshot
+          name: difftext
 #       - name: Download a single artifact
 #         uses: actions/download-artifact@v2
 #         with:
