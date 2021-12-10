@@ -56,6 +56,11 @@ jobs:
 #           echo "testing"
 #           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC'
 #       - uses: actions/checkout@v2
+      - run: |
+          echo "Newly added fields"
+          git diff ${{ github.event.pull_request.head.sha }} ${{ github.sha }}
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }}
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} > diff-text.txt
 #       - run: |
 #           echo "Newly added fields" > diff-text.txt
 #           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' >> diff-text.txt
