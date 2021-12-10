@@ -1,23 +1,23 @@
-name: git-diff-new-main
-on: pull_request
-jobs:
-  run-git-diff-main:
-    name: run git diff
-    runs-on: ubuntu-latest
-    steps:
-      - name: git checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+# name: git-diff-new-main
+# on: pull_request
+# jobs:
+#   run-git-diff-main:
+#     name: run git diff
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: git checkout
+#         uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 1
         
-      - name: git fetch
-        run: git fetch
+#       - name: git fetch
+#         run: git fetch
         
-      - name: git diff
-        run: |
-          git diff 'get-diff-action/main...get-diff-action/pull/14/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
-      - name: git diff to artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: difftext
-          path: diff-text.txt
+#       - name: git diff
+#         run: |
+#           git diff 'get-diff-action/main...get-diff-action/pull/14/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+#       - name: git diff to artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: difftext
+#           path: diff-text.txt
