@@ -21,3 +21,114 @@
 #         with:
 #           name: difftext
 #           path: diff-text.txt
+name: main-test-git-diff-new
+# on:
+#   pull_request:
+#     paths: 'en-us.json'
+on:
+  push:
+    branches:
+      - main
+    paths: 'en-us.json'
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 8BitJonny/gh-get-current-pr@1.3.0
+        id: PR
+        with:
+          github-token: ${{ secrets.GIT_TOKEN }}
+          sha: ${{ github.event.pull_request.head.sha }}
+#           filterOutClosed: true
+      - uses: technote-space/get-diff-action@v5
+      - name: Fetch and Diff PR  
+        run: |
+          git fetch origin main ${{ github.event.pull_request.head.sha }}
+          git diff ${{ github.event.pull_request.head.sha }} ${{ github.sha }} > diff-text.txt
+#       - run: |
+#           echo "testing"
+#           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC'
+#       - uses: actions/checkout@v2
+#       - run: |
+#           echo "Newly added fields" > diff-text.txt
+#           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' >> diff-text.txt
+#       - run: |
+#           echo "Removed fields" >> diff-text.txt
+#           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[-]' | grep -Ev '^(--- a/|\+\+\+ b/)' >> diff-text.txt
+#       - name: upload git diff to artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: difftext
+#           path: diff-text.txt
+#       - shell: bash
+#         run: |  
+#           echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt   
+#       - shell: bash
+#         run: |
+#           grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | grep ^http | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' | sort -u > pr-details-for-screenshot.txt
+#       - name: screenshot to artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: screenshot
+#           path: pr-details-for-screenshot.txt
+#       - name: Download the screenshot and diff text artifacts
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: difftext, screenshot
+# #       - name: Download a single artifact
+# #         uses: actions/download-artifact@v2
+# #         with:
+# #           name: screenshot
+# #       - uses: suisei-cn/actions-download-file@v1
+# #         id: downloadfile  # Remember to give an ID if you need the output
+# #         name: Download the file
+# #         with:
+# #           url: "https://user-images.githubusercontent.com/52317701/144969533-cf8fb60a-a0ff-41c5-b81c-42e8a5bdafcc.png"
+# #           target: public/
+# # #           auto-match: true
+# #       - name: Download a file
+# #         run: curl https://user-images.githubusercontent.com/52317701/144969533-cf8fb60a-a0ff-41c5-b81c-42e8a5bdafcc.png -o artifacts/screenshotimage.png
+#       - name: iterate screenshot file
+#         run: |
+#             i=0
+#             while read p; do
+#               echo "$i"
+#               url=$(echo $p | tr -d '>' | tr -d $'\r' | tr -d ')')
+#               if [[ $url =~ "images" ]]; then
+#                 echo "url It's there!"
+#                 echo "'$url'" | LC_ALL=C cat -vt
+#                 curl "$url" -o artifacts/screenshot${i}.png
+#                 i=$((i+1))
+#               fi
+#             done < pr-details-for-screenshot.txt
+#       - name: Send mail
+#         uses: dawidd6/action-send-mail@v3
+#         with:
+#           # Required mail server address:
+#           server_address: smtp.gmail.com
+#           # Required mail server port:
+#           server_port: 465
+#           # Optional (recommended): mail server username:
+#           username: ${{secrets.MAIL_USERNAME}}
+#           # Optional (recommended) mail server password:
+#           password: ${{secrets.MAIL_PASSWORD}}
+#           # Required mail subject:
+#           subject: new screenshot download test
+#           # Required recipients' addresses:
+#           to: tester101r81@gmail.com
+#           # Required sender full name (address can be skipped):
+#           from: Testser # <user@example.com>
+#           # Optional whether this connection use TLS (default is true if server_port is 465)
+#           secure: true
+#           body: new screenshot download test
+#           html_body: new screenshot download test
+#           cc: tester101r81@gmail.com
+#           bcc: tester101r81@gmail.com
+#           reply_to: tester101r81@gmail.com
+#           in_reply_to: <tester101r81@gmail.com>
+#           ignore_cert: true
+#           convert_markdown: true
+# #           attachments: difftext, diff-text.txt, screenshot, pr-details-for-screenshot.txt, public/downloadfile, artifacts/*
+#           attachments: artifacts/*.png, diff-text.txt
+#           priority: low
