@@ -20,7 +20,7 @@ jobs:
 #           filterOutClosed: true
       - uses: technote-space/get-diff-action@v5
       - run: |
-          echo "Newly added fields" > diff-text.txt
+          echo "testing"
           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC'
       - run: |
           echo "Newly added fields" > diff-text.txt
