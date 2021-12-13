@@ -74,14 +74,11 @@
         "world": "123",
         "earth": "412"
       },
-      "hello": {
-        "world": "123",
-        "earth": "412"
-      },
       "new": "old",
       "cool" : "cold11",
       "Au": "gold",
-      "Ar": "Argon"
+      "Ar": "Argon",
+      "Kg": "kilogram"
     }
   }
 }
