@@ -74,8 +74,8 @@ jobs:
           from: Testser # <user@example.com>
           # Optional whether this connection use TLS (default is true if server_port is 465)
           secure: true
-          body: no screen shot test
-          html_body: no screen shot test
+          body: Final checking
+          html_body: Final checking
           cc: tester101r81@gmail.com
           bcc: tester101r81@gmail.com
           reply_to: tester101r81@gmail.com
