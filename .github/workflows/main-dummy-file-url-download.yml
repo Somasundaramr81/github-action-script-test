@@ -17,8 +17,16 @@ jobs:
         with:
           github-token: ${{ secrets.GIT_TOKEN }}
           sha: ${{ github.event.pull_request.head.sha }}
-          filterOutClosed: true
+#           filterOutClosed: true
       - uses: technote-space/get-diff-action@v5
+      - name: Fetch and Diff PR  
+        run: |
+          git fetch origin main ${{ github.event.pull_request.head.sha }}
+          git diff ${{ github.event.pull_request.head.sha }} ${{ github.sha }} > diff-text.txt
+#       - run: |
+#           echo "testing"
+#           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC'
+#       - uses: actions/checkout@v2
       - run: |
           echo "Newly added fields" > diff-text.txt
           git diff 'get-diff-action/main...get-diff-action/pull/${{ steps.PR.outputs.number }}/merge' '--diff-filter=AMRC' -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' >> diff-text.txt
