@@ -13,6 +13,7 @@
     "productName": "{count, plural, =1 {Custom Flow} other {Custom Flows}}",
      "new": "old",
       "new": "old",
+      "new": "old",
     "links": {
       "userGuide": {
         "href": "https://support.freshchat.com/support/solutions/articles/50000001041-custom-bots"
@@ -102,11 +103,7 @@
       "hello": {
         "world": "123",
         "earth": "412"
-      },
-       "hello": {
-        "world": "123",
-        "earth": "412"
-      },
+      }
     }
   }
 }
