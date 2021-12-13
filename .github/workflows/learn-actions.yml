@@ -60,10 +60,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: screenshot
-      - uses: kceb/pull-request-url-action@v1
+      - name: get Pull Request URL
+        uses: kceb/pull-request-url-action@v1
         id: pr-url
-
-      - run: echo "${{ steps.pr-url.outputs.url }}"
+      - run: echo "The Pull Request URL is ${{ steps.pr-url.outputs.url }}" >> diff-text.txt
       - name: iterate screenshot file
         run: |
             i=1
