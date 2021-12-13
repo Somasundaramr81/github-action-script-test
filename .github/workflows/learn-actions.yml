@@ -70,7 +70,12 @@ jobs:
                 i=$((i+1))
               elif [[ $url =~ "freshrelease" ]]; then
                 echo $url
-                echo "The corresponding freshrelease ticket is $url " >> diff-text.txt
+                if [[ $url =~ "|" ]]; then
+                  echo "The corresponding freshrelease ticket is" >> diff-text.txt
+                  echo $url | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" >> diff-text.txt
+                else
+                  echo "The corresponding freshrelease ticket is $url " >> diff-text.txt
+                fi
               fi
             done < pr-details-for-screenshot.txt
       - name: upload git diff to artifact
