@@ -60,6 +60,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: screenshot
+      - uses: kceb/pull-request-url-action@v1
+        id: pr-url
+
+      - run: echo "${{ steps.pr-url.outputs.url }}"
       - name: iterate screenshot file
         run: |
             i=1
@@ -73,6 +77,7 @@ jobs:
                 if [[ $url =~ "|" ]]; then
                   echo "The corresponding freshrelease ticket is" >> diff-text.txt
                   echo $url | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" >> diff-text.txt
+                  echo "The PR url is ${{ github.event.number }} ${{ steps.pr-url.outputs.url }}"
                 else
                   echo "The corresponding freshrelease ticket is $url " >> diff-text.txt
                 fi
