@@ -53,11 +53,7 @@
       "hello": {
         "world": "123",
         "earth": "412"
-      },
-      "hello": {
-        "world": "123",
-        "earth": "412"
-      },
+      }
       "new": "old",
       "cool" : "cold11",
       "Au": "gold",
@@ -66,7 +62,8 @@
       "sugar": "salt",
       "blue": "clue",
       "blue": "clue",
-      "blue": "clue"
+      "blue": "clue",
+      "new": "old"
     }
   }
 }
