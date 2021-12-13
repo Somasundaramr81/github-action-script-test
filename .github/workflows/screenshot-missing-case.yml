@@ -71,15 +71,15 @@ jobs:
           # Optional (recommended) mail server password:
           password: ${{secrets.MAIL_PASSWORD}}
           # Required mail subject:
-          subject: new screenshot download test
+          subject: Regarding the translation changes
           # Required recipients' addresses:
           to: tester101r81@gmail.com
           # Required sender full name (address can be skipped):
           from: Testser # <user@example.com>
           # Optional whether this connection use TLS (default is true if server_port is 465)
           secure: true
-          body: Final checking
-          html_body: Final checking
+          body: Please find the attached files and screenshots for the translation changes
+          html_body: Please find the attached files and screenshots for the translation changes
           cc: tester101r81@gmail.com
           bcc: tester101r81@gmail.com
           reply_to: tester101r81@gmail.com
