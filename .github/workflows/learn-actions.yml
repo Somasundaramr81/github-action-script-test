@@ -69,7 +69,7 @@ jobs:
                 curl "$url" -o artifacts/screenshot${i}.png
                 i=$((i+1))
               elif [[ $url =~ "fresh" ]]; then
-                echo "The coressponding freshrelease ticket is $url" >> diff-text.txt
+                echo "The coressponding freshrelease ticket is "grep http $url | sed 's/http/\nhttp/g' | { grep ^http || true; } | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' >> diff-text.txt
               fi
             done < pr-details-for-screenshot.txt
       - name: upload git diff to artifact
