@@ -46,6 +46,10 @@ jobs:
                 fi
               fi
             done < pr-details-for-screenshot.txt
+      - name: get Pull Request URL
+        uses: kceb/pull-request-url-action@v1
+        id: pr-url
+      - run: echo "The corresponding Pull Request URL is ${{ steps.pr-url.outputs.url }}" >> diff-text.txt
       - name: upload git diff to artifact
         uses: actions/upload-artifact@v2
         with:
