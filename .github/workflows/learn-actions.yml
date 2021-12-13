@@ -49,7 +49,7 @@ jobs:
       - shell: bash
         run: |
           if grep -q "images" pr-details-for-screenshot.txt; then
-            grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | { grep ^http || true; } | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' >> pr-details-for-screenshot.txt
+            grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | { grep ^http || true; } | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' > pr-details-for-screenshot.txt
           fi
       - name: upload git diff to artifact
         uses: actions/upload-artifact@v2
