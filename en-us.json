@@ -34,10 +34,6 @@
         "world": "123",
         "earth": "412"
       },
-      "hello": {
-        "world": "123",
-        "earth": "412"
-      },
       "new": "old",
       "cool" : "cold11",
       "Au": "gold",
@@ -50,7 +46,8 @@
       "new": "old",
       "new": "old",
       "hello": "world",
-      "testing": "123"
+      "testing": "123",
+      "123": "435"
     }
   }
 }
