@@ -27,14 +27,17 @@ jobs:
           github-token: ${{ secrets.GIT_TOKEN }}
           sha: ${{ github.event.pull_request.head.sha }}
       - uses: technote-space/get-diff-action@v5
+#       - run: |
+#           echo "Newly added fields" >> diff-text.txt
+#           if git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; }; then
+#               echo "found" >> diff-text.txt
+#               git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
+#           else
+#               echo "not found" >> diff-text.txt
+#           fi
       - run: |
           echo "Newly added fields" >> diff-text.txt
-          if git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; }; then
-              echo "found" >> diff-text.txt
-              git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
-          else
-              echo "not found" >> diff-text.txt
-          fi
+          git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
       - name: upload git diff to artifact
         uses: actions/upload-artifact@v2
         with:
@@ -58,6 +61,8 @@ jobs:
               if [[ $url =~ "images" ]]; then
                 curl "$url" -o artifacts/screenshot${i}.png
                 i=$((i+1))
+              elif [[ $url =~ "fresh" ]]; then
+                echo "The coressponding freshrelease ticket is $url | tr -d ')'" >> diff-text.txt
               fi
             done < pr-details-for-screenshot.txt
       - name: Send mail
