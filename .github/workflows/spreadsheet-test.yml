@@ -5,6 +5,10 @@ jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          echo "Newly added fields"
+          printf ${{ secrets.GSHEETS_PRIVATE_KEY }}
+          printf ${{ secrets.MAIL_USERNAME }}
       - id: 'update_worksheet'
         uses: jroehl/gsheet.action@v1.0.0 # you can specify '@release' to always have the latest changes
         with:
