@@ -15,7 +15,7 @@ jobs:
               { "command": "updateData", "args": { "data": [["A1", "A2", "A3"]] }}
             ]
         env:
-          GSHEET_CLIENT_EMAIL: ${{ secrets.MAIL_USERNAME }}
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
       - name: dump results
         env:
