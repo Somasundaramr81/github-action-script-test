@@ -67,7 +67,7 @@ jobs:
       - name: iterate json file
         run: |
             while read p; do
-              field=$(echo $p | sed 's/^"\(.*\)".*/\1/' a)
+              field=$(sed 's/^"\(.*\)".*/\1/' p)
               echo "hello"
               echo $field
               echo $field >> csv-file.txt
