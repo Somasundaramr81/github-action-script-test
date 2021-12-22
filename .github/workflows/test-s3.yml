@@ -14,6 +14,7 @@ jobs:
       - run: |
           echo "Newly added fields" >> diff-text.txt
           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
+          git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> new-changes.json
       - shell: bash
         run: |  
           echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt   
@@ -70,7 +71,7 @@ jobs:
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "addWorksheet", "args": { "worksheetTitle": "new sheet" }},
-              { "command": "updateData", "args": { "data": diff-text.txt }},
+              { "command": "updateData", "args": { "data": new-changes.json }},
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
