@@ -11,6 +11,7 @@ jobs:
           github-token: ${{ secrets.GIT_TOKEN }}
           sha: ${{ github.event.pull_request.head.sha }}
       - uses: technote-space/get-diff-action@v5
+      - uses: jroehl/gsheet.action@v1.0.0 # you can specify '@release' to always have the latest changes
       - run: |
           echo "Newly added fields" >> diff-text.txt
           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
@@ -71,6 +72,15 @@ jobs:
               echo "hello"
               echo $field
               echo $field >> csv-file.txt
+              with:
+                spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
+                  commands: |
+                    [
+                      { "command": "updateData", "args": { "data":  $field}},
+                    ]
+                env:
+                  GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
+                  GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
             done < new-changes.json
       - name: upload git diff to artifact
         uses: actions/upload-artifact@v2
