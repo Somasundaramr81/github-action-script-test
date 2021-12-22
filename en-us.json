@@ -30,6 +30,16 @@
       },
       "audio": {
         "href": "https://freshchat.wistia.com/medias/vsvh3qaaqy"
+      },
+      "links": {
+      "userGuide": {
+        "href": "https://support.freshchat.com/support/solutions/articles/50000001041-custom-bots"
+      },
+      "video": {
+        "href": "https://freshchat.wistia.com/medias/vsvh3qaaqy"
+      },
+      "audio": {
+        "href": "https://freshchat.wistia.com/medias/vsvh3qaaqy"
       }
     }
   }
