@@ -74,15 +74,15 @@ jobs:
               echo $field
               echo $field >> csv-file.txt
             done < new-changes.json
-      - name: upload git diff to artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: csvfile
-          path: csv-file.txt
-      - name: Download the diff text artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: csvfile
+#       - name: upload git diff to artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: csvfile
+#           path: csv-file.txt
+#       - name: Download the diff text artifact
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: csvfile
       - id: set-matrix
         run: echo "::set-output name=matrix::{\"new fields\":[{\"new\":\"old\",\"jam\":\"jelly\"},{\"new\":\"old\",\"hello\":\"world\"}]}"
       - name: print matrix
