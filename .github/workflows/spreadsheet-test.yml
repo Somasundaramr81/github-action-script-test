@@ -8,7 +8,7 @@ jobs:
       - run: |
           echo "Newly added fields"
           printf ${{ secrets.GSHEETS_PRIVATE_KEY }}
-          printf ${{ secrets.MAIL_USERNAME }}
+          printf ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
       - id: 'update_worksheet'
         uses: jroehl/gsheet.action@v1.0.0 # you can specify '@release' to always have the latest changes
         with:
@@ -20,7 +20,7 @@ jobs:
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.MAIL_USERNAME }}
-          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_PRIVATE_KEY }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
       - name: dump results
         env:
           #  the output of the action can be found in ${{ steps.update_worksheet.outputs.results }}
