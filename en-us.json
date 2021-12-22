@@ -53,6 +53,15 @@
       },
       "image": {
         "href": "https://hello1234"
+      },
+        "video": {
+        "href": "https://freshchat.wistia.com/medias/vsvh3qaaqy"
+      },
+      "audio": {
+        "href": "https://freshchat.wistia.com/medias/vsvh3qaaqy"
+      },
+      "image": {
+        "href": "https://hello1234"
       }
     }
   }
