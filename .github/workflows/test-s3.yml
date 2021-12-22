@@ -67,7 +67,7 @@ jobs:
       - name: iterate json file
         run: |
             while read p; do
-              field=$(sed 's/^"\(.*\)".*/\1/' $p)
+              field=$(echo $p| grep -o '".*"' | sed 's/"//g')
               echo "hello"
               echo $field
               echo $field >> csv-file.txt
