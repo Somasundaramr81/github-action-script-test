@@ -1,23 +1,40 @@
-name: git-diff-new
-on: pull_request
+# name: git-diff-new
+# on: pull_request
+# jobs:
+#   run-git-diff:
+#     name: run git diff
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: git checkout
+#         uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 1
+        
+#       - name: git fetch
+#         run: git fetch
+        
+#       - name: git diff
+#         run: |
+#           git diff 22612d62e2a167b8d432522ecc065e1f2b0e9008 054430b -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
+#       - name: git diff to artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: difftext
+#           path: diff-text.txt
+name: matrix-new
+on: push
 jobs:
-  run-git-diff:
-    name: run git diff
+  job1:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - name: git checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-        
-      - name: git fetch
-        run: git fetch
-        
-      - name: git diff
-        run: |
-          git diff 22612d62e2a167b8d432522ecc065e1f2b0e9008 054430b -- en-us.json -U0 | grep '^[+]' | grep -Ev '^(--- a/|\+\+\+ b/)' > diff-text.txt
-      - name: git diff to artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: difftext
-          path: diff-text.txt
+      - id: set-matrix
+        run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJSON(needs.job1.outputs.matrix)}}
+    steps:
+      - run: build
