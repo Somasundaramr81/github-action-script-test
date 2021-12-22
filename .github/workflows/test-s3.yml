@@ -67,8 +67,20 @@ jobs:
       - name: iterate json file
         run: |
             while read p; do
-              echo $p
+              field=$(echo $p | sed 's/^"\(.*\)".*/\1/' a)
+              echo "hello"
+              echo $field
+              echo $field >> csv-file.txt
             done < new-changes.json
+      - name: upload git diff to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: csvfile
+          path: csv-file.txt
+      - name: Download the diff text artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: csvfile
 #       - id: 'update_worksheet'
 #         uses: jroehl/gsheet.action@v1.0.0 # you can specify '@release' to always have the latest changes
 #         with:
