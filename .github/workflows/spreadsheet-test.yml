@@ -16,7 +16,7 @@ jobs:
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.MAIL_USERNAME }}
-          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_API_KEY }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_PRIVATE_KEY }}
       - name: dump results
         env:
           #  the output of the action can be found in ${{ steps.update_worksheet.outputs.results }}
