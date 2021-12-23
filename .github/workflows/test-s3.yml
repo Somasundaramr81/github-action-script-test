@@ -95,7 +95,7 @@ jobs:
       - id: set-json-matrix
         run: |
           JSON=$(cat ./construct-new-json.json)
-          echo "::set-output name=jmatrix::${JSON//'%'/'%25'}"
+          echo "::set-output name=jmatrix::${JSON}"
       - name: print json matrix
         run: |
           echo ${{ steps.set-json-matrix.outputs.jmatrix }}
