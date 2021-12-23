@@ -77,13 +77,16 @@ jobs:
               p=$(echo $p | sed 'y/+/ /')
               echo "hello P is"
               echo $p >> construct-new-json.json
+              echo $p
               p=$(echo $p | sed 's/:/], [/g')
+              echo $p
+              p=$(echo $p | sed 's/,/], /g')
+              echo $p
               echo $p >> construct-array.txt
-              echo "], " >> construct-array.txt
               echo $field >> csv-file.txt
             done < new-changes.json
             echo "}" >> construct-new-json.json
-            echo "]" >> construct-array.txt
+            echo "]]" >> construct-array.txt
       - name: upload git diff to artifact
         uses: actions/upload-artifact@v2
         with:
