@@ -11,6 +11,7 @@ jobs:
           spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
           commands: | # list of commands, specified as a valid JSON string
             [
+              { "command": "getWorksheet", "args": { "worksheetTitle": "new sheet" }},
               { "command": "updateData", "args": { "data": [["new", "old", "test"]] }}
             ]
         env:
