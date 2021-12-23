@@ -109,7 +109,10 @@ jobs:
 #           echo ${{ steps.set-json-matrix.outputs.jmatrix }}
 #           echo ${{steps.set-json-value.outputs.final}}
       - name: Set env
-        run: echo "GITHUB_TESTING=$(cat ./construct-new-json.json)" >> $GITHUB_ENV
+        run: |
+          JSON=$(cat ./construct-new-json.json)
+          echo $JSON
+          echo "GITHUB_TESTING=$(echo $JSON)" >> $GITHUB_ENV
       - name: Test
         run: echo "$GITHUB_TESTING"
 #       - run: echo "JSON_DATA= $(cat ./construct-new-json.json)" >> $GITHUB_ENV
