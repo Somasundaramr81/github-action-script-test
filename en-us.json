@@ -1,3 +1,6 @@
 {
-"nintendo": "world",
+  "nintendo": "world",
+  "mario": "world",
+  "testing": "new fields",
+  "key": "value"
 }
