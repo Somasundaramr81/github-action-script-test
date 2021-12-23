@@ -67,7 +67,8 @@
         "new": "new",
         "new": "old",
         "new": "old",
-        "hello": "world"
+        "hello": "world",
+        "new": "old"
       }
     }
   }
