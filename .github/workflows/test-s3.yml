@@ -84,7 +84,7 @@ jobs:
 #         with:
 #           name: csvfile
       - id: set-matrix
-        run: echo "::set-output name=matrix::[[{\"new fields\":[{\"new\":\"old\",\"jam\":\"jelly\"},{\"new\":\"old\",\"hello\":\"world\"}]}]]"
+        run: echo "::set-output name=matrix::[["new1", "old1", "test1"]]"
       - name: print matrix
         run: |
           echo ${{ steps.set-matrix.outputs.matrix }}
@@ -95,8 +95,8 @@ jobs:
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new sheet" }},
-              { "command": "updateData", "args": { "data": [["new", "old", "test"]] }}
-              { "command": "updateData", "args": { "data": JSON.parse(JSON.stringify(${{ steps.set-matrix.outputs.matrix }})); }}
+              { "command": "appendData", "args": { "data": [["new", "old", "test"]] }}
+              { "command": "appendData", "args": { "data": ${{ steps.set-matrix.outputs.matrix }} }}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
