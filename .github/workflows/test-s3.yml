@@ -94,7 +94,16 @@ jobs:
           echo ${{ steps.set-matrix.outputs.matrix }}
       - id: set-json-matrix
         run: |
-          JSON=$(cat ./construct-new-json.json)
+          foo=$(cat <<EOF
+          {"Comment":"Update DNSName.","Changes":[{"Action":"UPSERT","ResourceRecordSet":{"Name":"alex.","Type":"A","AliasTarget":{"HostedZoneId":"######","DNSName":"$bar","EvaluateTargetHealth":false}}}]}
+          EOF
+          )
+          JSON={
+                "test": "123",
+                "new": "old"
+              }
+          echo $JSON
+          echo $foo
           echo "::set-output name=jmatrix::${JSON}"
       - name: print json matrix
         run: |
