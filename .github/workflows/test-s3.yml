@@ -108,8 +108,12 @@ jobs:
 #         run: |
 #           echo ${{ steps.set-json-matrix.outputs.jmatrix }}
 #           echo ${{steps.set-json-value.outputs.final}}
-      - run: echo "JSON_DATA= $(cat ./construct-new-json.json)" >> $GITHUB_ENV
-      - run: echo "${{ env.JSON_DATA }}"
+      - name: Set env
+        run: echo "GITHUB_TESTING=$(echo "tesing123")" >> $GITHUB_ENV
+      - name: Test
+        run: echo "$GITHUB_TESTING"
+#       - run: echo "JSON_DATA= $(cat ./construct-new-json.json)" >> $GITHUB_ENV
+#       - run: echo "${{ env.JSON_DATA }}"
       - id: 'update_worksheet'
         uses: jroehl/gsheet.action@v1.0.0 # you can specify '@release' to always have the latest changes
         with:
@@ -121,7 +125,7 @@ jobs:
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new sheet" }},
               { "command": "updateData", "args": { "data": [["new", "old", "test"],["main_key", "sub-key", "value"]] , "minCol": 2 }},
-              { "command": "appendData", "args": { "data": [[${{ env.JSON_DATA }}]] , "minCol": 4 }}
+              { "command": "appendData", "args": { "data": [[${{ env.GITHUB_TESTING }}]] , "minCol": 4 }}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
