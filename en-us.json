@@ -76,7 +76,9 @@
         "hello": "world",
         "new": "world",
         "tes111ing": "123",
-        "hello": "low"
+        "hello": "low",
+        "tab": "Tablet",
+        "tap": "Faucet"
       }
     }
   }
