@@ -95,7 +95,9 @@ jobs:
       - id: set-json-value
         run: |
           JSON=$(cat ./construct-new-json.json)
-          echo "::set-output name=final::${JSON}"
+          echo "THE JSON VALUE IS"
+          echo $JSON
+          echo "name=final::${JSON}"
       - id: set-json-matrix
         run: |
           JSON=$(cat ./construct-new-json.json)
