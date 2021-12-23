@@ -74,9 +74,9 @@ jobs:
             while read p; do
               echo "[" >> construct-array.txt
               field=$(echo $p| grep -o '".*"' | sed 's/"//g')
-              echo $p | sed 'y/+/ /' >> construct-new-json.json
+              p=$(echo $p | sed 'y/+/ /')
               echo "hello P is"
-              echo $p
+              echo $p >> construct-new-json.json
               p=$(echo $p | sed 's/:/], [/g')
               echo $p >> construct-array.txt
               echo "], " >> construct-array.txt
@@ -87,12 +87,12 @@ jobs:
       - name: upload git diff to artifact
         uses: actions/upload-artifact@v2
         with:
-          name: construct-new-json
-          path: construct-new-json.json
+          name: construct-array
+          path: construct-array.txt
       - name: Download the diff text artifact
         uses: actions/download-artifact@v2
         with:
-          name: construct-new-json
+          name: construct-array
 #       - id: set-matrix
 #         run: echo "::set-output name=matrix::[[{\"name\":\"John\"}]]"
 #       - name: print matrix
@@ -116,7 +116,7 @@ jobs:
 #           echo ${{steps.set-json-value.outputs.final}}
       - name: Set env
         run: |
-          JSON=$(cat ./construct-new-json.json)
+          JSON=$(cat ./construct-array.txt)
           echo $JSON
           echo "GITHUB_TESTING=$(echo $JSON)" >> $GITHUB_ENV
       - name: Test
