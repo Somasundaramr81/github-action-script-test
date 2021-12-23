@@ -84,7 +84,7 @@ jobs:
 #         with:
 #           name: csvfile
       - id: set-matrix
-        run: echo "::set-output name=matrix::[[{\"name\":\"John\"]]"
+        run: echo "::set-output name=matrix::[[{\"name\":\"John\"}]]"
       - name: print matrix
         run: |
           echo ${{ steps.set-matrix.outputs.matrix }}
