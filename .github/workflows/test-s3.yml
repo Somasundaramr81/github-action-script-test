@@ -95,7 +95,7 @@ jobs:
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "addWorksheet", "args": { "worksheetTitle": "new sheet" }},
-              { "command": "updateData", "args": { "data": [["name", "age", "test"]] }},
+              { "command": "updateData", "args": { "data": [["A1", "A2", "A3"]] }},
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
