@@ -92,9 +92,13 @@ jobs:
       - name: print matrix
         run: |
           echo ${{ steps.set-matrix.outputs.matrix }}
+      - env:
+          JSON_VALUE: | 
+            echo $(cat ./construct-new-json.json)
       - id: set-json-matrix
         run: |
           JSON=$(cat ./construct-new-json.json)
+          echo ${{ env.JSON_VALUE }}
           echo $JSON
           echo "::set-output name=jmatrix::${JSON}"
       - name: print json matrix
