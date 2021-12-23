@@ -3,5 +3,6 @@
   "mario": "world",
   "testing": "new fields",
   "key": "value",
-  "new": "world"
+  "new": "world",
+  "old": "world",
 }
