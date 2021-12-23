@@ -119,9 +119,14 @@ jobs:
         run: |
           JSON=$(cat ./construct-array.txt)
           echo $JSON
+          echo "before"
+          echo $JSON
           if [[ $JSON == *", ]]"* ]]; then
+            echo "IT EXISTS!!!!"
             JSON=$(echo $JSON | sed 's/\(.*\),/\1 /')
           fi
+          echo "after"
+          echo $JSON
           echo "GITHUB_TESTING=$(echo $JSON)" >> $GITHUB_ENV
       - name: Test
         run: echo "$GITHUB_TESTING"
