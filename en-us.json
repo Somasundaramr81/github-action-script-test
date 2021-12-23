@@ -10,6 +10,9 @@
       "audio": {
         "href": "https://freshchat.wistia.com/medias/vsvh3qaaqy"
       },
+      "audio-1": {
+        "href": "https://freshchat.wistia.com/medias/vsvh3qaaqy"
+      },
     "productName": "{count, plural, =1 {Custom Flow} other {Custom Flows}}",
     "links": {
       "userGuide": {
