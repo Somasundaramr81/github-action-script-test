@@ -91,6 +91,14 @@ jobs:
       - name: Set json array in git variable
         run: |
           JSON=$(cat ./construct-array.txt)
+          echo "before"
+          echo $JSON
+          if [[ $JSON == *", ]]"* ]]; then
+            echo "IT EXISTS!!!!"
+            JSON=$(echo $JSON | sed 's/\(.*\),/\1 /')
+          fi
+          echo "after"
+          echo $JSON
           echo "GITHUB_TESTING=$(echo $JSON)" >> $GITHUB_ENV
       - id: 'update_worksheet'
         uses: jroehl/gsheet.action@v1.0.0
