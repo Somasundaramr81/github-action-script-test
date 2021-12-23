@@ -69,21 +69,24 @@ jobs:
           name: difftext
       - name: iterate json file
         run: |
+            echo "{" >> construct-new-json.json
             while read p; do
               field=$(echo $p| grep -o '".*"' | sed 's/"//g')
+              echo $p >> construct-new-json.json
               echo "hello"
               echo $field
               echo $field >> csv-file.txt
             done < new-changes.json
-#       - name: upload git diff to artifact
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: csvfile
-#           path: csv-file.txt
-#       - name: Download the diff text artifact
-#         uses: actions/download-artifact@v2
-#         with:
-#           name: csvfile
+            echo "}" >> construct-new-json.json
+      - name: upload git diff to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: construct-new-json
+          path: construct-new-json.json
+      - name: Download the diff text artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: construct-new-json
       - id: set-matrix
         run: echo "::set-output name=matrix::[[{\"name\":\"John\"}]]"
       - name: print matrix
@@ -91,7 +94,7 @@ jobs:
           echo ${{ steps.set-matrix.outputs.matrix }}
       - id: set-json-matrix
         run: |
-          JSON=$(cat ./new.json)
+          JSON=$(cat ./construct-new-json.json)
           echo "::set-output name=jmatrix::${JSON//'%'/'%25'}"
       - name: print json matrix
         run: |
