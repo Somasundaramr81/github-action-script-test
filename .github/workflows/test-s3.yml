@@ -87,38 +87,41 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: construct-new-json
-      - id: set-matrix
-        run: echo "::set-output name=matrix::[[{\"name\":\"John\"}]]"
-      - name: print matrix
-        run: |
-          echo ${{ steps.set-matrix.outputs.matrix }}
-      - id: set-json-value
-        run: |
-          echo "set JSON VALE"
-          JSON=$(cat ./construct-new-json.json)
-          echo "THE JSON VALUE IS"
-          echo $JSON
-          echo "name=final::${JSON}"
-      - id: set-json-matrix
-        run: |
-          echo "JSON JMATRIX"
-          JSON=$(cat ./construct-new-json.json)
-          echo "::set-output name=jmatrix::${JSON}"
-      - name: print json matrix
-        run: |
-          echo ${{ steps.set-json-matrix.outputs.jmatrix }}
-          echo ${{steps.set-json-value.outputs.final}}
+#       - id: set-matrix
+#         run: echo "::set-output name=matrix::[[{\"name\":\"John\"}]]"
+#       - name: print matrix
+#         run: |
+#           echo ${{ steps.set-matrix.outputs.matrix }}
+#       - id: set-json-value
+#         run: |
+#           echo "set JSON VALE"
+#           JSON=$(cat ./construct-new-json.json)
+#           echo "THE JSON VALUE IS"
+#           echo $JSON
+#           echo "name=final::${JSON}"
+#       - id: set-json-matrix
+#         run: |
+#           echo "JSON JMATRIX"
+#           JSON=$(cat ./construct-new-json.json)
+#           echo "::set-output name=jmatrix::${JSON}"
+#       - name: print json matrix
+#         run: |
+#           echo ${{ steps.set-json-matrix.outputs.jmatrix }}
+#           echo ${{steps.set-json-value.outputs.final}}
+      - run: echo "JSON_DATA= $(cat ./construct-new-json.json)" >> $GITHUB_ENV
+      - run: echo "${{ env.JSON_DATA }}"
       - id: 'update_worksheet'
         uses: jroehl/gsheet.action@v1.0.0 # you can specify '@release' to always have the latest changes
         with:
           spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
           run: |
             LOCALJSON=$(cat ./construct-new-json.json)
+            
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new sheet" }},
               { "command": "updateData", "args": { "data": [["new", "old", "test"],["main_key", "sub-key", "value"]] , "minCol": 2 }},
-              { "command": "appendData", "args": { "data": [[$LOCALJSON]] , "minCol": 4 }}
+              { "command": "appendData", "args": { "data": [[${{ env.JSON_DATA }}]] , "minCol": 4 }}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
