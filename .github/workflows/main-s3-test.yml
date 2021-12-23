@@ -68,17 +68,17 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: difftext
-#       - name: iterate json file
-#         run: |
-#             echo "[" >> construct-array.txt
-#             while read p; do
-#               echo "[" >> construct-array.txt
-#               p=$(echo $p | sed 'y/+/ /')
-#               p=$(echo $p | sed 's/,/], /g')
-#               p=$(echo $p | sed 's/:/,/g')
-#               echo $p >> construct-array.txt
-#             done < new-changes.json
-#             echo "]]" >> construct-array.txt
+      - name: iterate json file
+        run: |
+            echo "[" >> construct-array.txt
+            while read p; do
+              echo "[" >> construct-array.txt
+              p=$(echo $p | sed 'y/+/ /')
+              p=$(echo $p | sed 's/,/], /g')
+              p=$(echo $p | sed 's/:/,/g')
+              echo $p >> construct-array.txt
+            done < new-changes.json
+            echo "]]" >> construct-array.txt
 #       - name: upload git diff to artifact
 #         uses: actions/upload-artifact@v2
 #         with:
