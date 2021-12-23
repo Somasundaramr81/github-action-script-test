@@ -72,7 +72,8 @@
         "jam": "jelly",
         "test": "123",
         "hello": "world",
-        "test": "123"
+        "test": "123",
+        "hello": "world"
       }
     }
   }
