@@ -94,10 +94,7 @@ jobs:
           echo ${{ steps.set-matrix.outputs.matrix }}
       - id: set-json-matrix
         run: |
-          JSON={
-                "test": "123",
-                "new": "old"
-              }
+          JSON=$(cat ./construct-new-json.json)
           echo $JSON
           echo "::set-output name=jmatrix::${JSON}"
       - name: print json matrix
