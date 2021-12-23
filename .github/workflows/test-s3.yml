@@ -17,6 +17,7 @@ jobs:
           echo "Newly added fields" >> diff-text.txt
           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> new-changes.json
+          echo {\"name\":\"John\"} >> new.json
       - shell: bash
         run: |  
           echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt   
@@ -88,6 +89,13 @@ jobs:
       - name: print matrix
         run: |
           echo ${{ steps.set-matrix.outputs.matrix }}
+      - id: set-json-matrix
+        run: |
+          JSON=$(cat ./new.json)
+          echo "::set-output name=jmatrix::${JSON//'%'/'%25'}"
+      - name: print json matrix
+        run: |
+          echo ${{ steps.set-json-matrix.outputs.jmatrix }}
       - id: 'update_worksheet'
         uses: jroehl/gsheet.action@v1.0.0 # you can specify '@release' to always have the latest changes
         with:
@@ -96,7 +104,7 @@ jobs:
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new sheet" }},
               { "command": "appendData", "args": { "data": [["new", "old", "test"]] , "minCol": 9 }},
-              { "command": "appendData", "args": { "data": JSON.stringify(${{ steps.set-matrix.outputs.matrix }}) , "minCol": 10 }}
+              { "command": "appendData", "args": { "data": ${{ steps.set-json-matrix.outputs.jmatrix }} , "minCol": 10 }}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
