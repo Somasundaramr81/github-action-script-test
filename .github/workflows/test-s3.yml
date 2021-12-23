@@ -78,10 +78,8 @@ jobs:
               echo "hello P is"
               echo $p >> construct-new-json.json
               echo $p
-              p=$(echo $p | sed 's/:/,/g')
-              echo $p
               p=$(echo $p | sed 's/,/], /g')
-              echo $p
+              p=$(echo $p | sed 's/:/,/g')
               echo $p >> construct-array.txt
               echo $field >> csv-file.txt
             done < new-changes.json
