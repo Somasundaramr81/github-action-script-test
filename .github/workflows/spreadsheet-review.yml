@@ -106,7 +106,7 @@ jobs:
           spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
           commands: | 
             [
-              { "command": "addWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
+              { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
               { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 1}}
             ]
         env:
