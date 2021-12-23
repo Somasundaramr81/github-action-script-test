@@ -121,12 +121,13 @@ jobs:
           echo $JSON
           echo "before"
           echo $JSON
-          if [[ $JSON == *", ]]"* ]]; then
+          if [[ $JSON == *"hello"* ]]; then
             echo "IT EXISTS!!!!"
             JSON=$(echo $JSON | sed 's/\(.*\),/\1 /')
           fi
           echo "after"
           echo $JSON
+          JSON=$(echo $JSON | sed 's/, ]]/]/g')
           echo "GITHUB_TESTING=$(echo $JSON)" >> $GITHUB_ENV
       - name: Test
         run: echo "$GITHUB_TESTING"
