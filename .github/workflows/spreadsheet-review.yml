@@ -107,7 +107,7 @@ jobs:
           commands: | 
             [
               { "command": "addWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
-              { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }}}}
+              { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 1}}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
