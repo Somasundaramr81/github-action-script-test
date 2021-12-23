@@ -96,7 +96,7 @@ jobs:
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new sheet" }},
               { "command": "appendData", "args": { "data": [["new", "old", "test"]] }},
-              { "command": "appendData", "args": { "data": ${{ steps.set-matrix.outputs.matrix }}, "minCol"=4 }}
+              { "command": "appendData", "args": { "data": ${{ steps.set-matrix.outputs.matrix }}, "minCol": 4 }}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
