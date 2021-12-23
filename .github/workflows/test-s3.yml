@@ -72,7 +72,7 @@ jobs:
             echo "{" >> construct-new-json.json
             while read p; do
               field=$(echo $p| grep -o '".*"' | sed 's/"//g')
-              echo $p >> construct-new-json.json
+              echo $p | sed 'y/+/ /' >> construct-new-json.json
               echo "hello"
               echo $field
               echo $field >> csv-file.txt
