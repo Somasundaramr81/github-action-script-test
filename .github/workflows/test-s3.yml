@@ -134,7 +134,7 @@ jobs:
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new sheet" }},
               { "command": "updateData", "args": { "data": [["new", "old", "test"],["main_key", "sub-key", "value"]] , "minCol": 2 }},
-              { "command": "appendData", "args": { "data": [[${{ env.GITHUB_TESTING }}]] , "minCol": 4 }}
+              { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 4 }}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
