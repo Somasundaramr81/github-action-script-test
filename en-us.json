@@ -71,7 +71,8 @@
         "new": "old",
         "jam": "jelly",
         "test": "123",
-        "hello": "world"
+        "hello": "world",
+        "test": "123"
       }
     }
   }
