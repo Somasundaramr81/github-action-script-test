@@ -70,14 +70,20 @@ jobs:
       - name: iterate json file
         run: |
             echo "{" >> construct-new-json.json
+            echo "[" >> construct-array.txt
             while read p; do
+              echo "[" >> construct-array.txt
               field=$(echo $p| grep -o '".*"' | sed 's/"//g')
               echo $p | sed 'y/+/ /' >> construct-new-json.json
-              echo "hello"
-              echo $field
+              echo "hello P is"
+              echo $p
+              p=$(echo $p | sed 's/:/], [/g')
+              echo $p >> construct-array.txt
+              echo "], " >> construct-array.txt
               echo $field >> csv-file.txt
             done < new-changes.json
             echo "}" >> construct-new-json.json
+            echo "]" >> construct-array.txt
       - name: upload git diff to artifact
         uses: actions/upload-artifact@v2
         with:
