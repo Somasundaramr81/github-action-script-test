@@ -1,24 +1,24 @@
-name: gsheet.action test
-on: push
+# name: gsheet.action test
+# on: push
 
-jobs:
-  fetch:
-    runs-on: ubuntu-latest
-    steps:
-      - id: 'update_worksheet'
-        uses: jroehl/gsheet.action@v1.0.0 # you can specify '@release' to always have the latest changes
-        with:
-          spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
-          commands: | # list of commands, specified as a valid JSON string
-            [
-              { "command": "getWorksheet", "args": { "worksheetTitle": "new sheet" }},
-              { "command": "updateData", "args": { "data": [["new", "old", "test"]] }}
-            ]
-        env:
-          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
-          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
-      - name: dump results
-        env:
-          #  the output of the action can be found in ${{ steps.update_worksheet.outputs.results }}
-          RESULTS: ${{ steps.update_worksheet.outputs.results }}
-        run: echo "$RESULTS" | jq
+# jobs:
+#   fetch:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - id: 'update_worksheet'
+#         uses: jroehl/gsheet.action@v1.0.0 # you can specify '@release' to always have the latest changes
+#         with:
+#           spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
+#           commands: | # list of commands, specified as a valid JSON string
+#             [
+#               { "command": "getWorksheet", "args": { "worksheetTitle": "new sheet" }},
+#               { "command": "updateData", "args": { "data": [["new", "old", "test"]] }}
+#             ]
+#         env:
+#           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
+#           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
+#       - name: dump results
+#         env:
+#           #  the output of the action can be found in ${{ steps.update_worksheet.outputs.results }}
+#           RESULTS: ${{ steps.update_worksheet.outputs.results }}
+#         run: echo "$RESULTS" | jq
