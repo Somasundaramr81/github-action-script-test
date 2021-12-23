@@ -97,7 +97,8 @@
         "hello": "low",
         "tab": "Tablet",
         "tap": "Faucet",
-        "new": "old"
+        "new": "old",
+        "cold": "hot"
       }
     }
   }
