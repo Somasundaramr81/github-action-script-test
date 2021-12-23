@@ -92,14 +92,11 @@ jobs:
       - name: print matrix
         run: |
           echo ${{ steps.set-matrix.outputs.matrix }}
-      - env:
-          JSON_VALUE: | 
-            echo $(cat ./construct-new-json.json)
       - id: set-json-matrix
         run: |
           JSON=$(cat ./construct-new-json.json)
           echo ${{ env.JSON_VALUE }}
-          echo $JSON
+          echo "::set-output name=final::${JSON}"
           echo "::set-output name=jmatrix::${JSON}"
       - name: print json matrix
         run: |
@@ -112,7 +109,7 @@ jobs:
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new sheet" }},
               { "command": "updateData", "args": { "data": [["new", "old", "test"],["main_key", "sub-key", "value"]] , "minCol": 2 }},
-              { "command": "appendData", "args": { "data": [[$(cat ./construct-new-json.json)]] , "minCol": 4 }}
+              { "command": "appendData", "args": { "data": [[${{steps.set-json-matrix.outputs.final}}]] , "minCol": 4 }}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
