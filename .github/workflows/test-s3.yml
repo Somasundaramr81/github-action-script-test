@@ -94,16 +94,11 @@ jobs:
           echo ${{ steps.set-matrix.outputs.matrix }}
       - id: set-json-matrix
         run: |
-          foo=$(cat <<EOF
-                {"Comment":"Update DNSName."}
-                EOF
-                )
           JSON={
                 "test": "123",
                 "new": "old"
               }
           echo $JSON
-          echo $foo
           echo "::set-output name=jmatrix::${JSON}"
       - name: print json matrix
         run: |
