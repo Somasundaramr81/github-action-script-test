@@ -78,7 +78,7 @@ jobs:
               echo "hello P is"
               echo $p >> construct-new-json.json
               echo $p
-              p=$(echo $p | sed 's/:/], [/g')
+              p=$(echo $p | sed 's/:/,/g')
               echo $p
               p=$(echo $p | sed 's/,/], /g')
               echo $p
