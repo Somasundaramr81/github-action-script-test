@@ -2,12 +2,12 @@
   "mario": "world",
   "world": "hello",
   "hello": "world",
-  "removed": "key",
   "only": "new",
   "bat": "man",
   "key": "value",
   "new": "only",
   "jam": "jelly",
   "new": "only",
-  "old": "new"
+  "old": "new",
+  "added": "key"
 }
