@@ -107,15 +107,15 @@ jobs:
 #               echo $p >> construct-remove-array.txt
 #             done < removed-changes.json
 #             echo "]]" >> construct-remove-array.txt
-      - name: upload git diff to artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: construct-remove-array
-          path: construct-remove-array.txt
-      - name: Download the diff text artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: construct-remove-array
+#       - name: upload git diff to artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: construct-remove-array
+#           path: construct-remove-array.txt
+#       - name: Download the diff text artifact
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: construct-remove-array
       - name: Set json array in git variable
         id: "json_array"
         run: |
