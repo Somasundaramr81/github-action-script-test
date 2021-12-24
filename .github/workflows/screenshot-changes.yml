@@ -137,7 +137,7 @@ jobs:
           fi
       - name: update new keys
         id: 'update_worksheet'
-        if: ${{ steps.checksecrets.outputs.new_keys_found }}
+        if: ${{ steps.json_array.outputs.new_keys_found }}
         uses: jroehl/gsheet.action@v1.0.0
         with:
           spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
@@ -152,7 +152,7 @@ jobs:
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
       - name: update removed keys
         id: 'update_removed_keys_worksheet'
-        if: ${{ steps.checksecrets.outputs.removed_keys_found }}
+        if: ${{ steps.json_array.outputs.removed_keys_found }}
         uses: jroehl/gsheet.action@v1.0.0
         with:
           spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
