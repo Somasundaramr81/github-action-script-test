@@ -1,7 +1,7 @@
 {
-  "nintendo": "world",
   "mario": "world",
   "key": "value",
+  "removed": "key",
   "new": "world",
   "old": "world",
   "world": "hello"
