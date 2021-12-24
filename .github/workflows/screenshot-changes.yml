@@ -144,7 +144,7 @@ jobs:
           commands: | 
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
-              { "command": "appendData", "args": { "data": ["NEWLY ADDED KEYS"] , "minCol": 1}}
+              { "command": "appendData", "args": { "data": [["NEWLY ADDED KEYS"]] , "minCol": 1}}
               { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 1}}
             ]
         env:
@@ -159,7 +159,7 @@ jobs:
           commands: | 
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
-              { "command": "appendData", "args": { "data": ["REMOVED KEYS"] , "minCol": 1}}
+              { "command": "appendData", "args": { "data": [["REMOVED KEYS"]] , "minCol": 1}}
               { "command": "appendData", "args": { "data": ${{ env.GITHUB_REMOVED }} , "minCol": 1}}
             ]
         env:
