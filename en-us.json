@@ -5,4 +5,5 @@
   "world": "hello",
   "removed": "key",
   "new": "value"
+  "hello": "world"
 }
