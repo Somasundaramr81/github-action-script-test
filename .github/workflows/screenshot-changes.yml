@@ -135,6 +135,8 @@ jobs:
             echo ::set-output name=removed_keys_found::true
             echo "GITHUB_REMOVED=$(echo $JSON)" >> $GITHUB_ENV
           fi
+          echo ${{ steps.json_array.outputs.new_keys_found }}
+          echo ${{ steps.json_array.outputs.removed_keys_found }}
       - name: update new keys
         id: 'update_worksheet'
         if: ${{ steps.json_array.outputs.new_keys_found }}
