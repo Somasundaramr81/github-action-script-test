@@ -9,5 +9,6 @@
   "new": "only",
   "old": "new",
   "added": "key",
-  "hello": "world"
+  "hello": "world",
+  "newest": "new"
 }
