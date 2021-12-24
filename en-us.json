@@ -4,5 +4,5 @@
   "key": "value",
   "new": "world",
   "old": "world",
-  "Hello": "world"
+  "world": "hello"
 }
