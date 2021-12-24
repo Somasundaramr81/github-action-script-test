@@ -1,8 +1,14 @@
 {
-  "nintendo": "world",
   "mario": "world",
-  "testing": "new fields",
+  "world": "hello",
+  "hello": "world",
+  "only": "new",
   "key": "value",
-  "new": "world",
-  "old": "world",
+  "new": "only",
+  "new": "hunt",
+  "jam": "jelly",
+  "new": "only",
+  "old": "new",
+  "added": "key",
+  "hello": "world"
 }
