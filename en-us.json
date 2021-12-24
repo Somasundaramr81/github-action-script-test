@@ -1,7 +1,6 @@
 {
   "mario": "world",
   "world": "hello",
-  "new": "value",
   "hello": "world",
   "removed": "key",
   "key": "value",
