@@ -4,6 +4,7 @@
   "old": "world",
   "world": "hello",
   "removed": "key",
-  "new": "value"
-  "hello": "world"
+  "new": "value",
+  "hello": "world",
+  "removed": "key",
 }
