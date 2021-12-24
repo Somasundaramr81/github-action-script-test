@@ -135,36 +135,36 @@ jobs:
             echo ::set-output name=removed_keys_found::true
             echo "GITHUB_REMOVED=$(echo $JSON)" >> $GITHUB_ENV
           fi
-        - name: update new keys
-          id: 'update_worksheet'
-          if: ${{ steps.checksecrets.outputs.new_keys_found }}
-          uses: jroehl/gsheet.action@v1.0.0
-          with:
-            spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
-            commands: | 
-              [
-                { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
-                { "command": "appendData", "args": { "data": ["NEWLY ADDED KEYS"] , "minCol": 1}}
-                { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 1}}
-              ]
-          env:
-            GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
-            GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
-         - name: update removed keys
-          id: 'update_removed_keys_worksheet'
-          if: ${{ steps.checksecrets.outputs.removed_keys_found }}
-          uses: jroehl/gsheet.action@v1.0.0
-          with:
-            spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
-            commands: | 
-              [
-                { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
-                { "command": "appendData", "args": { "data": ["REMOVED KEYS"] , "minCol": 1}}
-                { "command": "appendData", "args": { "data": ${{ env.GITHUB_REMOVED }} , "minCol": 1}}
-              ]
-          env:
-            GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
-            GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
+      - name: update new keys
+        id: 'update_worksheet'
+        if: ${{ steps.checksecrets.outputs.new_keys_found }}
+        uses: jroehl/gsheet.action@v1.0.0
+        with:
+          spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
+          commands: | 
+            [
+              { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
+              { "command": "appendData", "args": { "data": ["NEWLY ADDED KEYS"] , "minCol": 1}}
+              { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 1}}
+            ]
+        env:
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
+      - name: update removed keys
+        id: 'update_removed_keys_worksheet'
+        if: ${{ steps.checksecrets.outputs.removed_keys_found }}
+        uses: jroehl/gsheet.action@v1.0.0
+        with:
+          spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
+          commands: | 
+            [
+              { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
+              { "command": "appendData", "args": { "data": ["REMOVED KEYS"] , "minCol": 1}}
+              { "command": "appendData", "args": { "data": ${{ env.GITHUB_REMOVED }} , "minCol": 1}}
+            ]
+        env:
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
 #       - name: dump results
 #         env:
 #           #  the output of the action can be found in ${{ steps.update_worksheet.outputs.results }}
@@ -185,32 +185,32 @@ jobs:
 #           AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
 #           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
 #           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-      - name: Send mail
-        uses: dawidd6/action-send-mail@v3
-        with:
-          # Required mail server address:
-          server_address: smtp.gmail.com
-          # Required mail server port:
-          server_port: 465
-          # Optional (recommended): mail server username:
-          username: ${{secrets.MAIL_USERNAME}}
-          # Optional (recommended) mail server password:
-          password: ${{secrets.MAIL_PASSWORD}}
-          # Required mail subject:
-          subject: new screenshot download test
-          # Required recipients' addresses:
-          to: tester101r81@gmail.com
-          # Required sender full name (address can be skipped):
-          from: Testser # <user@example.com>
-          # Optional whether this connection use TLS (default is true if server_port is 465)
-          secure: true
-          body: no screen shot test
-          html_body: no screen shot test
-          cc: tester101r81@gmail.com
-          bcc: tester101r81@gmail.com
-          reply_to: tester101r81@gmail.com
-          in_reply_to: <tester101r81@gmail.com>
-          ignore_cert: true
-          convert_markdown: true
-          attachments: artifacts/*.png, diff-text.txt
-          priority: low
+#       - name: Send mail
+#         uses: dawidd6/action-send-mail@v3
+#         with:
+#           # Required mail server address:
+#           server_address: smtp.gmail.com
+#           # Required mail server port:
+#           server_port: 465
+#           # Optional (recommended): mail server username:
+#           username: ${{secrets.MAIL_USERNAME}}
+#           # Optional (recommended) mail server password:
+#           password: ${{secrets.MAIL_PASSWORD}}
+#           # Required mail subject:
+#           subject: new screenshot download test
+#           # Required recipients' addresses:
+#           to: tester101r81@gmail.com
+#           # Required sender full name (address can be skipped):
+#           from: Testser # <user@example.com>
+#           # Optional whether this connection use TLS (default is true if server_port is 465)
+#           secure: true
+#           body: no screen shot test
+#           html_body: no screen shot test
+#           cc: tester101r81@gmail.com
+#           bcc: tester101r81@gmail.com
+#           reply_to: tester101r81@gmail.com
+#           in_reply_to: <tester101r81@gmail.com>
+#           ignore_cert: true
+#           convert_markdown: true
+#           attachments: artifacts/*.png, diff-text.txt
+#           priority: low
