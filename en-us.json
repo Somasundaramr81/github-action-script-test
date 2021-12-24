@@ -9,5 +9,6 @@
   "jam": "jelly",
   "new": "only",
   "old": "new",
-  "added": "key"
+  "added": "key",
+  "hello": "world"
 }
