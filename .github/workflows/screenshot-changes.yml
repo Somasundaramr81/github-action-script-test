@@ -140,33 +140,33 @@ jobs:
       - name: update new keys
         id: 'update_worksheet'
         if: ${{ steps.json_array.outputs.new_keys_found }}
-          uses: jroehl/gsheet.action@v1.0.0
-          with:
-            spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
-            commands: | 
-              [
-                { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
-                { "command": "appendData", "args": { "data": [["NEWLY ADDED KEYS"]] , "minCol": 1}},
-                { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 1}}
-              ]
-          env:
-            GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
-            GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
+        uses: jroehl/gsheet.action@v1.0.0
+        with:
+          spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
+          commands: | 
+            [
+              { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
+              { "command": "appendData", "args": { "data": [["NEWLY ADDED KEYS"]] , "minCol": 1}},
+              { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 1}}
+            ]
+        env:
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
       - name: update removed keys
         id: 'update_removed_keys_worksheet'
         if: ${{ steps.json_array.outputs.removed_keys_found }}
-          uses: jroehl/gsheet.action@v1.0.0
-          with:
-            spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
-            commands: | 
-              [
-                { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
-                { "command": "appendData", "args": { "data": [["REMOVED KEYS"]] , "minCol": 1}},
-                { "command": "appendData", "args": { "data": ${{ env.GITHUB_REMOVED }} , "minCol": 1}}
-              ]
-          env:
-            GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
-            GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
+        uses: jroehl/gsheet.action@v1.0.0
+        with:
+          spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
+          commands: | 
+            [
+              { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
+              { "command": "appendData", "args": { "data": [["REMOVED KEYS"]] , "minCol": 1}},
+              { "command": "appendData", "args": { "data": ${{ env.GITHUB_REMOVED }} , "minCol": 1}}
+            ]
+        env:
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
 #       - name: dump results
 #         env:
 #           #  the output of the action can be found in ${{ steps.update_worksheet.outputs.results }}
