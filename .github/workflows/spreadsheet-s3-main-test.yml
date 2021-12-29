@@ -150,14 +150,26 @@ jobs:
 #           AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
 #           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
 #           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-      - uses: shallwefootball/s3-upload-action@master
-        name: Upload S3
-        id: S3
-        with:
+#       - uses: shallwefootball/s3-upload-action@master
+#         name: Upload S3
+#         id: S3
+#         with:
+#           aws_key_id: ${{ secrets.AWS_KEY_ID }}
+#           aws_secret_access_key: ${{ secrets.AWS_ACCESS_KEY}}
+#           aws_bucket: ${{ secrets.AWS_BUCKET }}
+#           source_dir: 'artifacts'
+      - name: copy file to  s3
+        shell: bash
+        env:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.AWS_BUCKET }}
-          source_dir: 'artifacts'
+          aws_secret_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_s3_bucket: ${{ secrets.AWS_BUCKET }}
+        run: |
+          sudo apt-get update && sudo apt-get -y install awscli
+          aws configure set aws_access_key_id $aws_key_id
+          aws configure set aws_secret_access_key $aws_secret_access_key 
+          aws configure set default.region us-east-1
+          aws s3 artifacts/*.png s3://$aws_s3_bucket/
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
