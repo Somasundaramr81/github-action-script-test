@@ -13,5 +13,6 @@
   "newest": "new",
   "test": "testing",
   "new": "old",
-  "hello": "world"
+  "hello": "world",
+  "test": "hello"
 }
