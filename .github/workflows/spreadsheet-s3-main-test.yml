@@ -158,6 +158,9 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_BUCKET }}
           source_dir: 'artifacts'
+      - run: |
+          echo "hello"
+          echo ${{ steps.S3 }}
 #       - name: copy file to  s3
 #         shell: bash
 #         env:
