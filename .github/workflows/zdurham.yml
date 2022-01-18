@@ -175,7 +175,7 @@ jobs:
         with:
          args: --acl public-read
         env:
-          FILE: artifacts/*.png
+          FILE: diff-text.txt
           AWS_REGION: 'us-east-1'
           S3_BUCKET: ${{ secrets.AWS_BUCKET }}
           S3_KEY: ${{ secrets.S3_KEY }}
