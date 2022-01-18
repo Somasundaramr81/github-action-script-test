@@ -171,16 +171,16 @@ jobs:
 #           aws configure set default.region us-east-1
 #           aws s3 artifacts/*.png s3://$aws_s3_bucket/
       - name: Upload file to bucket
-       uses: zdurham/s3-upload-github-action@master
-       with:
+        uses: zdurham/s3-upload-github-action@master
+        with:
          args: --acl public-read
-       env:
-        FILE: artifacts/*.png
-        AWS_REGION: 'us-east-1'
-        S3_BUCKET: ${{ secrets.AWS_BUCKET }}
-        S3_KEY: ${{ secrets.S3_KEY }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY}}
+        env:
+          FILE: artifacts/*.png
+          AWS_REGION: 'us-east-1'
+          S3_BUCKET: ${{ secrets.AWS_BUCKET }}
+          S3_KEY: ${{ secrets.S3_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY}}
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
