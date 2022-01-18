@@ -28,5 +28,6 @@
   "new": "world",
   "hello": "world",
   "new": "world",
-  "hello": "world"
+  "hello": "world",
+  "world": "hello"
 }
