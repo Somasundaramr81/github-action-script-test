@@ -158,9 +158,20 @@ jobs:
           echo ${{ steps.PR.outputs.number }}
       - name: construct s3 url object to excelsheet
         run: |
+              echo "[" >> construct-s3-url-array.txt
               while read p; do
-                echo $p
+                echo "[" >> construct-s3-url-array.txt
+                echo $p >> construct-s3-url-array.txt
+                echo "]" >> construct-s3-url-array.txt
               done < screenshot-s3-url.txt
+              echo "]" >> construct-s3-url-array.txt
+              JSON=$(cat ./construct-s3-url-array.txt)
+              echo "JSON:"
+              echo $JSON
+              JSON=$(echo $JSON | sed 's/, ]]/]/g')
+              echo $JSON
+              echo "Done"
+              echo ${{ env.GITHUB_REMOVED }}
       - name: update s3 screenshot url to sheet
         id: 'update_s3_url_worksheet'
         uses: jroehl/gsheet.action@v1.0.0
