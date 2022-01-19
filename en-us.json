@@ -40,5 +40,6 @@
   "apple": "orange",
   "bread": "jam",
   "bread": "butter",
-  "testing": "test"
+  "testing": "test",
+  "test": "test"
 }
