@@ -162,13 +162,14 @@ jobs:
               while read p; do
                 echo "[" >> construct-s3-url-array.txt
                 echo $p >> construct-s3-url-array.txt
-                echo "]" >> construct-s3-url-array.txt
+                echo "]," >> construct-s3-url-array.txt
               done < screenshot-s3-url.txt
               echo "]" >> construct-s3-url-array.txt
               JSON=$(cat ./construct-s3-url-array.txt)
               echo "JSON:"
               echo $JSON
               JSON=$(echo $JSON | sed 's/, ]]/]/g')
+              echo "S3_URL=$(echo $JSON)" >> $GITHUB_ENV
               echo $JSON
               echo "Done"
               echo ${{ env.GITHUB_REMOVED }}
@@ -181,7 +182,7 @@ jobs:
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
               { "command": "appendData", "args": { "data": [[" S3 screenshot url "]] , "minCol": 1}},
-              { "command": "appendData", "args": { "data": ${{ env.GITHUB_REMOVED }} , "minCol": 1}}
+              { "command": "appendData", "args": { "data": ${{ env.S3_URL }} , "minCol": 1}}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
