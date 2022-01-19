@@ -168,7 +168,7 @@ jobs:
               JSON=$(cat ./construct-s3-url-array.txt)
               echo "JSON:"
               echo $JSON
-              JSON=$(echo $JSON | sed 's/, ], ]/]]/g')
+              JSON=$(echo $JSON | sed 's/, ],\s]/]]/g')
               echo "S3_URL=$(echo $JSON)" >> $GITHUB_ENV
               echo $JSON
               echo "Done"
