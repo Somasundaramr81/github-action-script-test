@@ -32,5 +32,6 @@
   "world": "hello",
   "hello": "world",
   "test": "world",
-  "test": "wprld" 
+  "test": "wprld",
+  "hello": "world"
 }
