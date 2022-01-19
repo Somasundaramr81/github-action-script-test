@@ -1,123 +1,123 @@
-# name: learn-actions
-# on: [push]
+# # name: learn-actions
+# # on: [push]
+# # jobs:
+# #   check-bats-version:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - uses: actions/checkout@v2
+# #       - uses: actions/setup-node@v2
+# #         with:
+# #           node-version: '14'
+# #       - run: npm install -g bats
+# #       - run: bats -v
+# name: sample-learn-action
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths: 'en-us.json'
 # jobs:
-#   check-bats-version:
+#   dump:
 #     runs-on: ubuntu-latest
 #     steps:
 #       - uses: actions/checkout@v2
-#       - uses: actions/setup-node@v2
+#       - uses: 8BitJonny/gh-get-current-pr@1.3.0
+#         id: PR
 #         with:
-#           node-version: '14'
-#       - run: npm install -g bats
-#       - run: bats -v
-name: sample-learn-action
-on:
-  push:
-    branches:
-      - main
-    paths: 'en-us.json'
-jobs:
-  dump:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: 8BitJonny/gh-get-current-pr@1.3.0
-        id: PR
-        with:
-          github-token: ${{ secrets.GIT_TOKEN }}
-          sha: ${{ github.event.pull_request.head.sha }}
-      - uses: technote-space/get-diff-action@v5
+#           github-token: ${{ secrets.GIT_TOKEN }}
+#           sha: ${{ github.event.pull_request.head.sha }}
+#       - uses: technote-space/get-diff-action@v5
+# #       - run: |
+# #           echo "Newly added fields" >> diff-text.txt
+# #           if git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; }; then
+# #               echo "found" >> diff-text.txt
+# #               git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
+# #           else
+# #               echo "not found" >> diff-text.txt
+# #           fi
 #       - run: |
 #           echo "Newly added fields" >> diff-text.txt
-#           if git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; }; then
-#               echo "found" >> diff-text.txt
-#               git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
-#           else
-#               echo "not found" >> diff-text.txt
+#           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
+# #       - name: upload git diff to artifact
+# #         uses: actions/upload-artifact@v2
+# #         with:
+# #           name: difftext
+# #           path: diff-text.txt
+#       - shell: bash
+#         run: |  
+#           echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt   
+#       - shell: bash
+#         run: |
+#           if grep -q "images" pr-details-for-screenshot.txt; then
+#             grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | { grep ^http || true; } | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' > pr-details-for-screenshot.txt
 #           fi
-      - run: |
-          echo "Newly added fields" >> diff-text.txt
-          git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
+#       - name: upload git diff to artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: screenshot
+#           path: pr-details-for-screenshot.txt
+#       - name: Download the diff text artifact
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: screenshot
+#       - name: get Pull Request URL
+#         uses: kceb/pull-request-url-action@v1
+#         id: pr-url
+#       - run: echo "The Pull Request URL is ${{ steps.pr-url.outputs.url }}" >> diff-text.txt
+#       - name: iterate screenshot file
+#         run: |
+#             i=1
+#             while read p; do
+#               url=$(echo $p | tr -d '>' | tr -d $'\r' | tr -d ')')
+#               if [[ $url =~ "images" ]]; then
+#                 curl "$url" -o artifacts/screenshot${i}.png
+#                 i=$((i+1))
+#               elif [[ $url =~ "freshrelease" ]]; then
+#                 echo $url
+#                 if [[ $url =~ "|" ]]; then
+#                   echo "The corresponding freshrelease ticket is" >> diff-text.txt
+#                   echo $url | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" >> diff-text.txt
+#                   echo "The PR url is ${{ github.event.number }} ${{ steps.pr-url.outputs.url }}"
+#                 else
+#                   echo "The corresponding freshrelease ticket is $url " >> diff-text.txt
+#                 fi
+#               fi
+#             done < pr-details-for-screenshot.txt
 #       - name: upload git diff to artifact
 #         uses: actions/upload-artifact@v2
 #         with:
 #           name: difftext
 #           path: diff-text.txt
-      - shell: bash
-        run: |  
-          echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt   
-      - shell: bash
-        run: |
-          if grep -q "images" pr-details-for-screenshot.txt; then
-            grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | { grep ^http || true; } | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' > pr-details-for-screenshot.txt
-          fi
-      - name: upload git diff to artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: screenshot
-          path: pr-details-for-screenshot.txt
-      - name: Download the diff text artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: screenshot
-      - name: get Pull Request URL
-        uses: kceb/pull-request-url-action@v1
-        id: pr-url
-      - run: echo "The Pull Request URL is ${{ steps.pr-url.outputs.url }}" >> diff-text.txt
-      - name: iterate screenshot file
-        run: |
-            i=1
-            while read p; do
-              url=$(echo $p | tr -d '>' | tr -d $'\r' | tr -d ')')
-              if [[ $url =~ "images" ]]; then
-                curl "$url" -o artifacts/screenshot${i}.png
-                i=$((i+1))
-              elif [[ $url =~ "freshrelease" ]]; then
-                echo $url
-                if [[ $url =~ "|" ]]; then
-                  echo "The corresponding freshrelease ticket is" >> diff-text.txt
-                  echo $url | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" >> diff-text.txt
-                  echo "The PR url is ${{ github.event.number }} ${{ steps.pr-url.outputs.url }}"
-                else
-                  echo "The corresponding freshrelease ticket is $url " >> diff-text.txt
-                fi
-              fi
-            done < pr-details-for-screenshot.txt
-      - name: upload git diff to artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: difftext
-          path: diff-text.txt
-      - name: Download the diff text artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: difftext
-      - name: Send mail
-        uses: dawidd6/action-send-mail@v3
-        with:
-          # Required mail server address:
-          server_address: smtp.gmail.com
-          # Required mail server port:
-          server_port: 465
-          # Optional (recommended): mail server username:
-          username: ${{secrets.MAIL_USERNAME}}
-          # Optional (recommended) mail server password:
-          password: ${{secrets.MAIL_PASSWORD}}
-          # Required mail subject:
-          subject: new screenshot download test
-          # Required recipients' addresses:
-          to: tester101r81@gmail.com
-          # Required sender full name (address can be skipped):
-          from: Testser # <user@example.com>
-          # Optional whether this connection use TLS (default is true if server_port is 465)
-          secure: true
-          body: no screen shot test
-          html_body: no screen shot test
-          cc: tester101r81@gmail.com
-          bcc: tester101r81@gmail.com
-          reply_to: tester101r81@gmail.com
-          in_reply_to: <tester101r81@gmail.com>
-          ignore_cert: true
-          convert_markdown: true
-          attachments: artifacts/*.png, diff-text.txt
-          priority: low
+#       - name: Download the diff text artifact
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: difftext
+#       - name: Send mail
+#         uses: dawidd6/action-send-mail@v3
+#         with:
+#           # Required mail server address:
+#           server_address: smtp.gmail.com
+#           # Required mail server port:
+#           server_port: 465
+#           # Optional (recommended): mail server username:
+#           username: ${{secrets.MAIL_USERNAME}}
+#           # Optional (recommended) mail server password:
+#           password: ${{secrets.MAIL_PASSWORD}}
+#           # Required mail subject:
+#           subject: new screenshot download test
+#           # Required recipients' addresses:
+#           to: tester101r81@gmail.com
+#           # Required sender full name (address can be skipped):
+#           from: Testser # <user@example.com>
+#           # Optional whether this connection use TLS (default is true if server_port is 465)
+#           secure: true
+#           body: no screen shot test
+#           html_body: no screen shot test
+#           cc: tester101r81@gmail.com
+#           bcc: tester101r81@gmail.com
+#           reply_to: tester101r81@gmail.com
+#           in_reply_to: <tester101r81@gmail.com>
+#           ignore_cert: true
+#           convert_markdown: true
+#           attachments: artifacts/*.png, diff-text.txt
+#           priority: low
