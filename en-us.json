@@ -39,5 +39,6 @@
   "new": "world",
   "apple": "orange",
   "bread": "jam",
-  "bread": "butter"
+  "bread": "butter",
+  "testing": "test"
 }
