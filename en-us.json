@@ -41,5 +41,6 @@
   "bread": "jam",
   "bread": "butter",
   "testing": "test",
-  "test": "test"
+  "test": "test",
+  "testing": "hello"
 }
