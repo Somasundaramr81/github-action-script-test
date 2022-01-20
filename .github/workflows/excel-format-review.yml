@@ -1,9 +1,9 @@
 name: excel-format-review
-on:
-  push:
-    branches:
-      - main
-    paths: 'en-us.json'
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths: 'en-us.json'
 jobs:
   dump:
     runs-on: ubuntu-latest
