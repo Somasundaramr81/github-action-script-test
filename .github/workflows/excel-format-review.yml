@@ -112,7 +112,7 @@ jobs:
             echo "NEW_KEYS_FOUND=$(echo true)" >> $GITHUB_ENV
             echo ${{ env.GITHUB_TESTING }}
           else
-            JSON="[[\"No newly added fields\", \"-\", \"-\" \"-\"]]"
+            JSON="[[\"No newly added fields\", \"-\", \"-\", \"-\"]]"
             echo "GITHUB_TESTING=$(echo $JSON)" >> $GITHUB_ENV
           fi
           if [ -s removed-changes.json ]; then
