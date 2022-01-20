@@ -82,6 +82,7 @@ jobs:
                 p=$(echo $p | sed 'y/+/ /')
                 p=$(echo $p | sed 's/,/,"added"], /g')
                 p=$(echo $p | sed 's/:/,/g')
+                echo $p
                 echo $p >> construct-array.txt
               done < new-changes.json
               echo ",\"added\"]]" >> construct-array.txt
@@ -93,6 +94,7 @@ jobs:
                 p=$(echo $p | sed 'y/-/ /')
                 p=$(echo $p | sed 's/,/,"removed"], /g')
                 p=$(echo $p | sed 's/:/,/g')
+                echo $p
                 echo $p >> construct-remove-array.txt
               done < removed-changes.json
               echo ",\"removed\"]]" >> construct-remove-array.txt
@@ -107,12 +109,14 @@ jobs:
             JSON=$(echo $JSON | sed 's/, ]]/]/g')
             echo "GITHUB_TESTING=$(echo $JSON)" >> $GITHUB_ENV
             echo "NEW_KEYS_FOUND=$(echo true)" >> $GITHUB_ENV
+            echo ${{ env.GITHUB_TESTING }}
           fi
           if [ -s removed-changes.json ]; then
             JSON=$(cat ./construct-remove-array.txt)
             JSON=$(echo $JSON | sed 's/, ]]/]/g')
             echo "GITHUB_REMOVED=$(echo $JSON)" >> $GITHUB_ENV
             echo "REMOVED_KEYS_FOUND=$(echo true)" >> $GITHUB_ENV
+            echo ${{ env.GITHUB_REMOVED }}
           fi
 #       - name: update new keys
 #         id: 'update_worksheet'
