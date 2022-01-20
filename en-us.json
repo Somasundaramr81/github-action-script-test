@@ -8,9 +8,6 @@
   "jam": "jelly",
   "new": "only",
   "added": "key",
-  "newest": "new",
-  "new": "old",
-  "new": "world",
   "eye": "ear",
   "new": "old",
   "bubbles": "pop",
@@ -20,6 +17,7 @@
   "testing": "world",
   "new": "world",
   "world": "hello",
+  "testing": "old",
   "test.test": "world",
   "Butter": "fly",
   "new": "world",
@@ -31,11 +29,13 @@
   "test": "test",
   "testing": "hello",
   "help": "kit",
+  "test.test": "world",
   "tool": "box",
   "test": "world",
   "google": "yahoo",
   "testing": "test",
   "good": "day",
   "hello": "world",
-  "hello": "human"
+  "hello": "human",
+  "test.test": "world"
 }
