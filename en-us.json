@@ -11,11 +11,9 @@
   "added": "key",
   "hello": "world",
   "newest": "new",
-  "test": "testing",
   "new": "old",
   "hello": "world",
   "test": "hello",
-  "test": "test",
   "hello": "world",
   "new": "world",
   "hello": "world",
@@ -47,5 +45,7 @@
   "tool": "box",
   "test": "world",
   "google": "yahoo",
-  "testing": "test"
+  "testing": "test",
+  "good": "day",
+  "hello": "world"
 }
