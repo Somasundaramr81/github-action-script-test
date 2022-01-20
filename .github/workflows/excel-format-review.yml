@@ -80,7 +80,7 @@ jobs:
               while read p; do
                 echo "[" >> construct-array.txt
                 p=$(echo $p | sed 'y/+/ /')
-                p=$(echo $p | sed 's/,/], /g')
+                p=$(echo $p | sed 's/,/,"added"], /g')
                 p=$(echo $p | sed 's/:/,/g')
                 echo $p >> construct-array.txt
               done < new-changes.json
@@ -91,7 +91,7 @@ jobs:
               while read p; do
                 echo "[" >> construct-remove-array.txt
                 p=$(echo $p | sed 'y/-/ /')
-                p=$(echo $p | sed 's/,/], /g')
+                p=$(echo $p | sed 's/,/,"removed"], /g')
                 p=$(echo $p | sed 's/:/,/g')
                 echo $p >> construct-remove-array.txt
               done < removed-changes.json
