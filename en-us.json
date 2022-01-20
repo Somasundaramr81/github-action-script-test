@@ -8,6 +8,7 @@
   "jam": "jelly",
   "new": "only",
   "added": "key",
+  "heello": "world",
   "eye": "ear",
   "new": "old",
   "bubbles": "pop",
@@ -16,14 +17,13 @@
   "testing": "io",
   "heello": "world",
   "new": "world",
-  "world": "hello",
+  "world1": "hello",
   "testing": "old",
   "test.test": "world",
   "Butter": "fly",
   "new": "world",
   "apple": "orange",
-  "testing": "test",
-  "bread": "jam",
+  "bread1": "jam",
   "bread": "butter",
   "testing": "test",
   "test": "test",
@@ -36,5 +36,6 @@
   "good": "day",
   "hello": "world",
   "hello": "human",
-  "test.test": "world"
+  "test.test": "world",
+  "hello": "world"
 }
