@@ -7,7 +7,6 @@
   "new": "hunt",
   "jam": "jelly",
   "new": "only",
-  "old": "new",
   "added": "key",
   "hello": "world",
   "newest": "new",
@@ -23,6 +22,7 @@
   "heelo": "world",
   "bubbles": "pop",
   "new":"world",
+  "testing": "io",
   "heello": "world",
   "hello": "world",
   "new": "world",
@@ -45,5 +45,6 @@
   "google": "yahoo",
   "testing": "test",
   "good": "day",
-  "hello": "world"
+  "hello": "world",
+  "hello": "human"
 }
