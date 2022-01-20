@@ -176,40 +176,39 @@ jobs:
           commands: | 
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
-              { "command": "appendData", "args": { "data": [["Key", "Value", "S3 url"]] , "minCol": 1}},
-              { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 1}},
-              { "command": "appendData", "args": { "data": ${{ env.GITHUB_REMOVED }} , "minCol": 1}},
-              { "command": "appendData", "args": { "data": ${{ env.S3_URL }} , "minCol": 1}}
+              { "command": "appendData", "args": { "data": [["Key", "Value", "Action Type", "S3 url"]] , "minCol": 1}},
+              { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }}, ${{ env.S3_URL }} , "minCol": 1}},
+              { "command": "appendData", "args": { "data": ${{ env.GITHUB_REMOVED }}, ${{ env.S3_URL }} , "minCol": 1}}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
-      - name: Send mail
-        uses: dawidd6/action-send-mail@v3
-        with:
-          # Required mail server address:
-          server_address: smtp.gmail.com
-          # Required mail server port:
-          server_port: 465
-          # Optional (recommended): mail server username:
-          username: ${{secrets.MAIL_USERNAME}}
-          # Optional (recommended) mail server password:
-          password: ${{secrets.MAIL_PASSWORD}}
-          # Required mail subject:
-          subject: new screenshot download test
-          # Required recipients' addresses:
-          to: tester101r81@gmail.com
-          # Required sender full name (address can be skipped):
-          from: Testser # <user@example.com>
-          # Optional whether this connection use TLS (default is true if server_port is 465)
-          secure: true
-          body: no screen shot test
-          html_body: no screen shot test
-          cc: tester101r81@gmail.com
-          bcc: tester101r81@gmail.com
-          reply_to: tester101r81@gmail.com
-          in_reply_to: <tester101r81@gmail.com>
-          ignore_cert: true
-          convert_markdown: true
-          attachments: artifacts/*.png, diff-text.txt
-          priority: low
+#       - name: Send mail
+#         uses: dawidd6/action-send-mail@v3
+#         with:
+#           # Required mail server address:
+#           server_address: smtp.gmail.com
+#           # Required mail server port:
+#           server_port: 465
+#           # Optional (recommended): mail server username:
+#           username: ${{secrets.MAIL_USERNAME}}
+#           # Optional (recommended) mail server password:
+#           password: ${{secrets.MAIL_PASSWORD}}
+#           # Required mail subject:
+#           subject: new screenshot download test
+#           # Required recipients' addresses:
+#           to: tester101r81@gmail.com
+#           # Required sender full name (address can be skipped):
+#           from: Testser # <user@example.com>
+#           # Optional whether this connection use TLS (default is true if server_port is 465)
+#           secure: true
+#           body: no screen shot test
+#           html_body: no screen shot test
+#           cc: tester101r81@gmail.com
+#           bcc: tester101r81@gmail.com
+#           reply_to: tester101r81@gmail.com
+#           in_reply_to: <tester101r81@gmail.com>
+#           ignore_cert: true
+#           convert_markdown: true
+#           attachments: artifacts/*.png, diff-text.txt
+#           priority: low
