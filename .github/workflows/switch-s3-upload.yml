@@ -84,20 +84,27 @@ jobs:
           destination_dir:  '${{ steps.PR.outputs.number }}/'
       - name: construct s3 url object to excelsheet
         run: |
-              echo "[" >> construct-s3-url-array.txt
-              while read p; do
-                echo "[\"" >> construct-s3-url-array.txt
-                echo $p >> construct-s3-url-array.txt
-                echo "\"]," >> construct-s3-url-array.txt
-              done < screenshot-s3-url.txt
-              echo "]" >> construct-s3-url-array.txt
-              JSON=$(cat ./construct-s3-url-array.txt)
-              JSON=$(echo $JSON | sed 's/], ]/]]/g')
-              echo "S3_URL=$(echo $JSON)" >> $GITHUB_ENV
-              JSON=$(cat ./screenshot-s3-url.txt)
-              echo "SWITCH up"
-              echo $JSON
-              echo "SINGLE_S3_URL=$(echo $JSON)" >> $GITHUB_ENV
+              if [ -e screenshot-s3-url.txt ]
+              then
+                  echo "[" >> construct-s3-url-array.txt
+                  while read p; do
+                    echo "[\"" >> construct-s3-url-array.txt
+                    echo $p >> construct-s3-url-array.txt
+                    echo "\"]," >> construct-s3-url-array.txt
+                  done < screenshot-s3-url.txt
+                  echo "]" >> construct-s3-url-array.txt
+                  JSON=$(cat ./construct-s3-url-array.txt)
+                  JSON=$(echo $JSON | sed 's/], ]/]]/g')
+                  echo "S3_URL=$(echo $JSON)" >> $GITHUB_ENV
+                  JSON=$(cat ./screenshot-s3-url.txt)
+                  echo "SWITCH up"
+                  echo $JSON
+                  echo "SINGLE_S3_URL=$(echo $JSON)" >> $GITHUB_ENV
+              else
+                  JSON="NO SCREENSHOT ATTACHED"
+                  echo "SINGLE_S3_URL=$(echo $JSON)" >> $GITHUB_ENV
+              fi
+              
       - name: iterate new json file
         run: |
             if [ -s new-changes.json ]; then
