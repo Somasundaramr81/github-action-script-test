@@ -84,7 +84,7 @@ jobs:
                 p=$(echo $p | sed 's/:/,/g')
                 echo $p >> construct-array.txt
               done < new-changes.json
-              echo "]]" >> construct-array.txt
+              echo ",\"added\"]]" >> construct-array.txt
             fi
             if [ -s removed-changes.json ]; then
               echo "[" >> construct-remove-array.txt
@@ -95,7 +95,7 @@ jobs:
                 p=$(echo $p | sed 's/:/,/g')
                 echo $p >> construct-remove-array.txt
               done < removed-changes.json
-              echo "]]" >> construct-remove-array.txt
+              echo ",\"removed\"]]" >> construct-remove-array.txt
             fi
       - name: Set json array in git variable
         id: "json_array"
@@ -153,9 +153,9 @@ jobs:
           aws_bucket: ${{ secrets.AWS_BUCKET }}
           source_dir: 'artifacts'
           destination_dir:  '${{ steps.PR.outputs.number }}/'
-      - run: |
-          echo "hello"
-          echo ${{ steps.PR.outputs.number }}
+#       - run: |
+#           echo "hello"
+#           echo ${{ steps.PR.outputs.number }}
       - name: construct s3 url object to excelsheet
         run: |
               echo "[" >> construct-s3-url-array.txt
