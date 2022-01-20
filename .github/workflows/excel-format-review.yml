@@ -107,6 +107,7 @@ jobs:
           if [ -s new-changes.json ]; then
             JSON=$(cat ./construct-array.txt)
             JSON=$(echo $JSON | sed 's/, ]]/]/g')
+            JSON=$(echo $JSON | sed 's/, ,"added"]]/]/g')
             echo "GITHUB_TESTING=$(echo $JSON)" >> $GITHUB_ENV
             echo "NEW_KEYS_FOUND=$(echo true)" >> $GITHUB_ENV
             echo ${{ env.GITHUB_TESTING }}
@@ -114,6 +115,7 @@ jobs:
           if [ -s removed-changes.json ]; then
             JSON=$(cat ./construct-remove-array.txt)
             JSON=$(echo $JSON | sed 's/, ]]/]/g')
+            JSON=$(echo $JSON | sed 's/, ,"removed"]]/]/g')
             echo "GITHUB_REMOVED=$(echo $JSON)" >> $GITHUB_ENV
             echo "REMOVED_KEYS_FOUND=$(echo true)" >> $GITHUB_ENV
             echo ${{ env.GITHUB_REMOVED }}
