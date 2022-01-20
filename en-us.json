@@ -22,6 +22,7 @@
   "new": "only",
   "testing": "old",
   "test.test": "world",
+  "testing": "hello",
   "Butter": "fly",
   "new": "world",
   "apple": "orange",
