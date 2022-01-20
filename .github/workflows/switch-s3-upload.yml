@@ -73,32 +73,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: difftext
-      - name: iterate new json file
-        run: |
-            if [ -s new-changes.json ]; then
-              echo "[" >> construct-array.txt
-              while read p; do
-                echo "[" >> construct-array.txt
-                p=$(echo $p | sed 'y/+/ /')
-                p=$(echo $p | sed 's/,/,"added"], /g')
-                p=$(echo $p | sed 's/:/,/g')
-                echo $p
-                echo $p >> construct-array.txt
-              done < new-changes.json
-              echo ",\"added\"]]" >> construct-array.txt
-            fi
-            if [ -s removed-changes.json ]; then
-              echo "[" >> construct-remove-array.txt
-              while read p; do
-                echo "[" >> construct-remove-array.txt
-                p=$(echo $p | sed 'y/-/ /')
-                p=$(echo $p | sed 's/,/,"removed"], /g')
-                p=$(echo $p | sed 's/:/,/g')
-                echo $p
-                echo $p >> construct-remove-array.txt
-              done < removed-changes.json
-              echo ",\"removed\"]]" >> construct-remove-array.txt
-            fi
       - uses: shallwefootball/s3-upload-action@master
         name: Upload S3
         id: S3
@@ -124,6 +98,32 @@ jobs:
               echo "SWITCH up"
               echo $JSON
               echo "SINGLE_S3_URL=$(echo $JSON)" >> $GITHUB_ENV
+      - name: iterate new json file
+        run: |
+            if [ -s new-changes.json ]; then
+              echo "[" >> construct-array.txt
+              while read p; do
+                echo "[" >> construct-array.txt
+                p=$(echo $p | sed 'y/+/ /')
+                p=$(echo $p | sed 's/,/,"added","${{ env.SINGLE_S3_URL }}"], /g')
+                p=$(echo $p | sed 's/:/,/g')
+                echo $p
+                echo $p >> construct-array.txt
+              done < new-changes.json
+              echo ",\"added\"]]" >> construct-array.txt
+            fi
+            if [ -s removed-changes.json ]; then
+              echo "[" >> construct-remove-array.txt
+              while read p; do
+                echo "[" >> construct-remove-array.txt
+                p=$(echo $p | sed 'y/-/ /')
+                p=$(echo $p | sed 's/,/,"removed","${{ env.SINGLE_S3_URL }}"], /g')
+                p=$(echo $p | sed 's/:/,/g')
+                echo $p
+                echo $p >> construct-remove-array.txt
+              done < removed-changes.json
+              echo ",\"removed\"]]" >> construct-remove-array.txt
+            fi
       - name: Set json array in git variable
         id: "json_array"
         run: |
@@ -149,7 +149,7 @@ jobs:
             echo ${{ env.GITHUB_REMOVED }}
           else
             JSON="[[\"No newly removed fields\", \"-\", \"-\", \"-\"]]"
-            echo "GITHUB_TESTING=$(echo $JSON)" >> $GITHUB_ENV
+            echo "GITHUB_REMOVED=$(echo $JSON)" >> $GITHUB_ENV
           fi
       - name: update s3 screenshot url to sheet
         id: 'update_s3_url_worksheet'
