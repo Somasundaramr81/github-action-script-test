@@ -44,5 +44,6 @@
   "test": "test",
   "testing": "hello",
   "help": "kit",
-  "tool": "box"
+  "tool": "box",
+  "test": "world"
 }
