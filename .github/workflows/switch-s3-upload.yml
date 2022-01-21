@@ -112,8 +112,8 @@ jobs:
               while read p; do
                 echo "[" >> construct-array.txt
                 p=$(echo $p | sed 'y/+/ /')
-                p=$(echo $p | sed 's/:/,/g')
                 p=$(echo $p | sed 's#,#,"added","${{ env.SINGLE_S3_URL }}"], #g')
+                p=$(echo $p | sed '0,/:/ s//,/')
                 echo $p
                 echo $p >> construct-array.txt
               done < new-changes.json
@@ -124,8 +124,8 @@ jobs:
               while read p; do
                 echo "[" >> construct-remove-array.txt
                 p=$(echo $p | sed 'y/-/ /')
-                p=$(echo $p | sed 's/:/,/g')
                 p=$(echo $p | sed 's#,#,"removed","${{ env.SINGLE_S3_URL }}"], #g')
+                p=$(echo $p | sed '0,/:/ s//,/')
                 echo $p
                 echo $p >> construct-remove-array.txt
               done < removed-changes.json
