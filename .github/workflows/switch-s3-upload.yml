@@ -99,6 +99,7 @@ jobs:
                   JSON=$(cat ./screenshot-s3-url.txt)
                   echo "SWITCH up"
                   echo $JSON
+                  JSON=$(echo $JSON | sed 's/ /, /g')
                   echo "SINGLE_S3_URL=$(echo $JSON)" >> $GITHUB_ENV
               else
                   JSON="NO SCREENSHOT ATTACHED"
