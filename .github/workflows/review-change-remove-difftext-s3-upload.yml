@@ -43,7 +43,7 @@ jobs:
               url=$(echo $p | tr -d '>' | tr -d $'\r' | tr -d ')')
               if [[ $url =~ "images" ]]; then
                 curl "$url" -o artifacts/screenshot${i}.png
-                echo "https://uploadscreenshot.s3.ap-south-1.amazonaws.com/${{ steps.PR.outputs.number }}/screenshot${i}.png" >> screenshot-s3-url.txt
+                echo "https://uploadscreenshot.s3.ap-south-1.amazonaws.com/${{ github.event.repository.name }}/${{ steps.PR.outputs.number }}/screenshot${i}.png" >> screenshot-s3-url.txt
                 i=$((i+1))
               elif [[ $url =~ "freshrelease" ]]; then
                 echo $url
