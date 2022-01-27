@@ -3,17 +3,15 @@
   "world": "hello",
   "hello": "world",
   "only": "new",
-  "new": "only",
+  "new1": "only1",
   "new": "hunt",
   "jam": "jelly",
   "new": "only",
-  "eye1": "ear1",
   "bubbles": "pop",
   "testing": "io",
   "new": "only",
   "new": "world",
   "world1": "hello",
-  "new": "only",
   "butter": "jam",
   "test.test": "world",
   "Butter": "fly",
@@ -40,5 +38,6 @@
   "hello": "world",
   "hello": "mario",
   "new": "only",
-  "testing": "new"
+  "testing": "new",
+  "testing": "hello"
 }
