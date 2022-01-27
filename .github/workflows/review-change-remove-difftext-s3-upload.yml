@@ -62,7 +62,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_BUCKET }}
           source_dir: 'artifacts'
-          destination_dir:  '${{ steps.PR.outputs.number }}/'
+          destination_dir:  '${{ github.event.repository.name }}/${{ steps.PR.outputs.number }}/'
       - name: construct s3 url object to excelsheet
         run: |
               if [ -e screenshot-s3-url.txt ]
