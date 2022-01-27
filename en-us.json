@@ -15,17 +15,17 @@
   "test.test": "world",
   "Butter": "fly",
   "new": "only",
+  "new": "old",
   "test": "hello",
   "new": "world",
   "jam": "jelly",
-  "apple": "orange",
   "bread1": "jam",
   "new": "only",
   "new": "only",
   "bread": "butter",
   "help": "kit",
   "test.test": "world",
-  "tool": "box",
+  "tool": "box1",
   "google": "yahoo",
   "testing": "test",
   "test": "testing",
@@ -38,5 +38,7 @@
   "hello": "mario",
   "new": "only",
   "testing": "new",
-  "testing": "hello"
+  "testing": "hello",
+  "testing": "hello",
+  "new": "world"
 }
