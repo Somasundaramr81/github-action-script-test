@@ -17,6 +17,7 @@
   "Butter": "fly",
   "new": "only",
   "new": "old",
+  "new": "wolrd",
   "test": "hello",
   "new": "world",
   "jam": "jelly",
@@ -26,10 +27,9 @@
   "help": "kit",
   "test.test": "world",
   "tool": "box1",
-  "google": "yahoo",
-  "testing": "test",
   "test": "testing",
   "good": "day",
+  "testing": "world",
   "hello": "world",
   "new": "only",
   "hello": "human",
@@ -40,5 +40,6 @@
   "testing": "new",
   "testing": "hello",
   "testing": "hello",
-  "new": "world"
+  "new": "world",
+  "old": "testing"
 }
