@@ -34,7 +34,7 @@ jobs:
           if grep -q "images" pr-details-for-screenshot.txt; then
             echo "BEFORE"
             echo $TEXT
-            grep http pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | { grep ^http || true; } | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' > pr-details-for-screenshot.txt
+            grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | { grep ^http || true; } | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' > pr-details-for-screenshot.txt
             echo "AFTER"
             TEXT=$(cat ./pr-details-for-screenshot.txt)
             echo $TEXT
