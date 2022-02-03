@@ -21,11 +21,16 @@ jobs:
           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[-]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> removed-changes.json
       - shell: bash
         run: |  
-          echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt   
+          echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt
+      - name: upload git diff to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: pr-details-for-screenshot.txt
+          path: pr-details-for-screenshot.txt
       - shell: bash
         run: |
           if grep -q "images" pr-details-for-screenshot.txt; then
-            grep http pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | { grep ^http || true; } | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' > pr-details-for-screenshot.txt
+            grep http ./pr-details-for-screenshot.txt | sed 's/http/\nhttp/g' | { grep ^http || true; } | sed 's/\(^http[^ <]*\)\(.*\)/\1/g' > pr-details-for-screenshot.txt
           fi
       - name: upload git diff to artifact
         uses: actions/upload-artifact@v2
