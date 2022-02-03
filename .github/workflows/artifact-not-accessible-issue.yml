@@ -162,8 +162,8 @@ jobs:
               { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
               { "command": "appendData", "args": { "data": [[" "]] , "minCol": 1}},
               { "command": "appendData", "args": { "data": [["Key", "Value", "Action Type", "S3 url"]] , "minCol": 1}},
-              { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 1}},
-              { "command": "appendData", "args": { "data": ${{ env.GITHUB_REMOVED }} , "minCol": 1}}
+              { "command": "appendData", "args": { "data": [ [ "subbu_key_45", "subbu key 42","removed",""]] , "minCol": 1}},
+              { "command": "appendData", "args": { "data": [ [ "subbu_key_12", "subbu key 12","added",""]] , "minCol": 1}}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
