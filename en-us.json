@@ -1,9 +1,8 @@
 {
   "mario": "world",
-  "world": "hello",
+  "world": "hell1o",
   "hello": "world",
   "only": "new",
-  "new1": "only1",
   "new": "hunt",
   "jam": "jelly",
   "new": "only",
@@ -14,6 +13,8 @@
   "new": "only",
   "testing": "tesing",
   "test.test": "world",
+  "new": "old",
+  "testing": "noew",
   "Butter": "fly",
   "new": "only",
   "new": "old",
@@ -41,5 +42,6 @@
   "testing": "hello",
   "testing": "hello",
   "new": "world",
-  "old": "testing"
+  "old": "testing",
+  "old": "new"
 }
