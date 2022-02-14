@@ -1,16 +1,4 @@
-# # name: learn-actions
-# # on: [push]
-# # jobs:
-# #   check-bats-version:
-# #     runs-on: ubuntu-latest
-# #     steps:
-# #       - uses: actions/checkout@v2
-# #       - uses: actions/setup-node@v2
-# #         with:
-# #           node-version: '14'
-# #       - run: npm install -g bats
-# #       - run: bats -v
-# name: sample-learn-action
+# name: spreadsheet-removed-keys-fix
 # on:
 #   push:
 #     branches:
@@ -27,22 +15,14 @@
 #           github-token: ${{ secrets.GIT_TOKEN }}
 #           sha: ${{ github.event.pull_request.head.sha }}
 #       - uses: technote-space/get-diff-action@v5
-# #       - run: |
-# #           echo "Newly added fields" >> diff-text.txt
-# #           if git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; }; then
-# #               echo "found" >> diff-text.txt
-# #               git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
-# #           else
-# #               echo "not found" >> diff-text.txt
-# #           fi
 #       - run: |
 #           echo "Newly added fields" >> diff-text.txt
 #           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
-# #       - name: upload git diff to artifact
-# #         uses: actions/upload-artifact@v2
-# #         with:
-# #           name: difftext
-# #           path: diff-text.txt
+#           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[+]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> new-changes.json
+#       - run: |
+#           echo "Removed fields (if any)" >> diff-text.txt
+#           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[-]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> diff-text.txt
+#           git diff ${{ github.event.before }} ${{ github.sha }} -- en-us.json -U0 | { grep '^[-]' || true; } | { grep -Ev '^(--- a/|\+\+\+ b/)' || true; } >> removed-changes.json
 #       - shell: bash
 #         run: |  
 #           echo "${{ steps.PR.outputs.pr_body }}" | sed -e 's/|/\\|/g' > pr-details-for-screenshot.txt   
@@ -92,6 +72,77 @@
 #         uses: actions/download-artifact@v2
 #         with:
 #           name: difftext
+#       - name: iterate new json file
+#         run: |
+#             if [ -s new-changes.json ]; then
+#               echo "[" >> construct-array.txt
+#               while read p; do
+#                 echo "[" >> construct-array.txt
+#                 p=$(echo $p | sed 'y/+/ /')
+#                 p=$(echo $p | sed 's/,/], /g')
+#                 p=$(echo $p | sed 's/:/,/g')
+#                 echo $p >> construct-array.txt
+#               done < new-changes.json
+#               echo "]]" >> construct-array.txt
+#             fi
+#             if [ -s removed-changes.json ]; then
+#               echo "[" >> construct-remove-array.txt
+#               while read p; do
+#                 echo "[" >> construct-remove-array.txt
+#                 p=$(echo $p | sed 'y/-/ /')
+#                 p=$(echo $p | sed 's/,/], /g')
+#                 p=$(echo $p | sed 's/:/,/g')
+#                 echo $p >> construct-remove-array.txt
+#               done < removed-changes.json
+#               echo "]]" >> construct-remove-array.txt
+#             fi
+#       - name: Set json array in git variable
+#         id: "json_array"
+#         run: |
+#           echo "REMOVED_KEYS_FOUND=$(echo false)" >> $GITHUB_ENV
+#           echo "NEW_KEYS_FOUND=$(echo false)" >> $GITHUB_ENV
+#           if [ -s new-changes.json ]; then
+#             JSON=$(cat ./construct-array.txt)
+#             JSON=$(echo $JSON | sed 's/, ]]/]/g')
+#             echo "GITHUB_TESTING=$(echo $JSON)" >> $GITHUB_ENV
+#             echo "NEW_KEYS_FOUND=$(echo true)" >> $GITHUB_ENV
+#           fi
+#           if [ -s removed-changes.json ]; then
+#             JSON=$(cat ./construct-remove-array.txt)
+#             JSON=$(echo $JSON | sed 's/, ]]/]/g')
+#             echo "GITHUB_REMOVED=$(echo $JSON)" >> $GITHUB_ENV
+#             echo "REMOVED_KEYS_FOUND=$(echo true)" >> $GITHUB_ENV
+#           fi
+#       - name: update new keys
+#         id: 'update_worksheet'
+#         if: ${{ env.NEW_KEYS_FOUND == 'true'}}
+#         uses: jroehl/gsheet.action@v1.0.0
+#         with:
+#           spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
+#           commands: | 
+#             [
+#               { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
+#               { "command": "appendData", "args": { "data": [["NEWLY ADDED KEYS"]] , "minCol": 1}},
+#               { "command": "appendData", "args": { "data": ${{ env.GITHUB_TESTING }} , "minCol": 1}}
+#             ]
+#         env:
+#           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
+#           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
+#       - name: update removed keys
+#         id: 'update_removed_keys_worksheet'
+#         if: ${{ env.REMOVED_KEYS_FOUND == 'true' }}
+#         uses: jroehl/gsheet.action@v1.0.0
+#         with:
+#           spreadsheetId: 1q4xe6hiAIVske50DorSHsMtkslzEJMuxwJtcxQL5RaM
+#           commands: | 
+#             [
+#               { "command": "getWorksheet", "args": { "worksheetTitle": "new demo sheet" }},
+#               { "command": "appendData", "args": { "data": [["REMOVED KEYS"]] , "minCol": 1}},
+#               { "command": "appendData", "args": { "data": ${{ env.GITHUB_REMOVED }} , "minCol": 1}}
+#             ]
+#         env:
+#           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEETS_GSERVICE_EMAIL }}
+#           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEETS_FULL_PRIVATE_KEY }}
 #       - name: Send mail
 #         uses: dawidd6/action-send-mail@v3
 #         with:
